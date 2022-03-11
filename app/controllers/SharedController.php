@@ -237,7 +237,7 @@ class SharedController extends BaseController{
 		);
 		
 		//set query result for dataset 1
-		$sqltext = "SELECT  SUM(et.votes) AS sum_of_votes, et.status FROM election_tally AS et GROUP BY et.status";
+		$sqltext = "SELECT  COUNT(et.id) AS count_of_id, et.status FROM election_tally AS et GROUP BY et.status";
 		$queryparams = null;
 		$dataset1 = $db->rawQuery($sqltext, $queryparams);
 		$dataset_data =  array_column($dataset1, 'count_of_id');
