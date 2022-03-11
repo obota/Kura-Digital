@@ -327,7 +327,7 @@ $show_pagination = $this->show_pagination;
                                                     <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("election_tally/view/$rec_id"); ?>">
                                                         <i class="fa fa-eye"></i> View
                                                     </a>
-                                                    <?php if($data['status'] !== "Verified") {?> 
+                                                    <?php if($data['status'] !== "Verified" || USER_ROLE == "Agent") {?> 
                                                     <a class="btn btn-sm btn-warning has-tooltip" title="Edit This Record" href="<?php print_link("election_tally/pollverification/$rec_id"); ?>">
                                                         <i class="fa fa-edit"></i> Verify Tally
                                                     </a>

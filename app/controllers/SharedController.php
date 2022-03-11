@@ -201,6 +201,30 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * election_tally_election_tallystatus_option_list Model Action
+     * @return array
+     */
+	function election_tally_election_tallystatus_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT status AS value,status AS label FROM election_tally ORDER BY id ASC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * poll_verification_poll_verificationstatus_option_list Model Action
+     * @return array
+     */
+	function poll_verification_poll_verificationstatus_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT status AS value,status AS label FROM poll_verification ORDER BY id ASC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
      * getcount_totalpollingstations Model Action
      * @return Value
      */

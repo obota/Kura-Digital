@@ -77,6 +77,10 @@ class Poll_verificationController extends SecureController{
 		if($fieldname){
 			$db->where($fieldname , $fieldvalue); //filter by a single field name
 		}
+		if(!empty($request->poll_verification_status)){
+			$vals = $request->poll_verification_status;
+			$db->where("poll_verification.status", $vals, "IN");
+		}
 		$tc = $db->withTotalCount();
 		$records = $db->get($tablename, $pagination, $fields);
 		$records_count = count($records);

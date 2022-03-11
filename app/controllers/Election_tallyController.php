@@ -73,6 +73,10 @@ class Election_tallyController extends SecureController{
 		if($fieldname){
 			$db->where($fieldname , $fieldvalue); //filter by a single field name
 		}
+		if(!empty($request->election_tally_status)){
+			$val = $request->election_tally_status;
+			$db->where("election_tally.status", $val , "=");
+		}
 		$tc = $db->withTotalCount();
 		$records = $db->get($tablename, $pagination, $fields);
 		$records_count = count($records);
