@@ -67,7 +67,7 @@ $redirect_to = $this->redirect_to;
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <select required="" data-endpoint="<?php print_link('api/json/election_tally_county_option_list') ?>" id="ctrl-county" name="county"  placeholder="Select a value ..."    class="selectize-ajax" >
+                                                <select required="" data-endpoint="<?php print_link('api/json/election_tally_county_option_list') ?>" id="ctrl-county" data-load-select-options="constituency" name="county"  placeholder="Select a value ..."    class="selectize-ajax" >
                                                     <option value="">Select a value ...</option>
                                                 </select>
                                             </div>
@@ -81,7 +81,7 @@ $redirect_to = $this->redirect_to;
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <select required="" data-endpoint="<?php print_link('api/json/election_tally_constituency_option_list') ?>" id="ctrl-constituency" name="constituency"  placeholder="Select a value ..."    class="selectize-ajax" >
+                                                <select required=""  id="ctrl-constituency" data-load-path="<?php print_link('api/json/election_tally_constituency_option_list') ?>" data-load-select-options="polling_center" name="constituency"  placeholder="Select a value ..."    class="selectize" >
                                                     <option value="">Select a value ...</option>
                                                 </select>
                                             </div>
@@ -95,7 +95,7 @@ $redirect_to = $this->redirect_to;
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <select required="" data-endpoint="<?php print_link('api/json/election_tally_polling_center_option_list') ?>" id="ctrl-polling_center" name="polling_center"  placeholder="Select a value ..."    class="selectize-ajax" >
+                                                <select required=""  id="ctrl-polling_center" data-load-path="<?php print_link('api/json/election_tally_polling_center_option_list') ?>" data-load-select-options="polling_station" name="polling_center"  placeholder="Select a value ..."    class="selectize" >
                                                     <option value="">Select a value ...</option>
                                                 </select>
                                             </div>
@@ -109,7 +109,7 @@ $redirect_to = $this->redirect_to;
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <select required="" data-endpoint="<?php print_link('api/json/election_tally_polling_station_option_list') ?>" id="ctrl-polling_station" name="polling_station"  placeholder="Select a value ..."    class="selectize-ajax" >
+                                                <select required=""  id="ctrl-polling_station" data-load-path="<?php print_link('api/json/election_tally_polling_station_option_list') ?>" name="polling_station"  placeholder="Select a value ..."    class="selectize" >
                                                     <option value="">Select a value ...</option>
                                                 </select>
                                             </div>
@@ -119,15 +119,11 @@ $redirect_to = $this->redirect_to;
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
+                                            <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
-                                                    <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $this->set_field_value('results_form',""); ?>" type="text"  />
-                                                        <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
-                                                        <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
-                                                    </div>
+                                                <input id="ctrl-votes"  value="<?php  echo $this->set_field_value('votes',""); ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
                                                 </div>
                                             </div>
                                         </div>
@@ -135,27 +131,43 @@ $redirect_to = $this->redirect_to;
                                     <div class="form-group ">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <input id="ctrl-tally_code"  value="<?php  echo $this->set_field_value('tally_code',random_num(5)); ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                    <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
+                                                        <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $this->set_field_value('results_form',""); ?>" type="text"  />
+                                                            <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
+                                                            <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group form-submit-btn-holder text-center mt-3">
-                                        <div class="form-ajax-status"></div>
-                                        <button class="btn btn-primary" type="submit">
-                                            Submit
-                                            <i class="fa fa-send"></i>
-                                        </button>
-                                    </div>
-                                </form>
+                                        <div class="form-group ">
+                                            <div class="row">
+                                                <div class="col-sm-4">
+                                                    <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                </div>
+                                                <div class="col-sm-8">
+                                                    <div class="">
+                                                        <input id="ctrl-tally_code"  value="<?php  echo $this->set_field_value('tally_code',random_num(5)); ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-submit-btn-holder text-center mt-3">
+                                            <div class="form-ajax-status"></div>
+                                            <button class="btn btn-primary" type="submit">
+                                                Submit
+                                                <i class="fa fa-send"></i>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>

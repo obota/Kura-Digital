@@ -96,7 +96,7 @@ define("MAX_RECORD_COUNT", 20); //Default Max Records to Retrieve  per Page
 define("ORDER_TYPE", "DESC");  //Default Order Type
 
 // Active User Profile Details
-
-
-
-
+define('USER_ID',(isset($_SESSION[APP_ID.'user_data']) ? $_SESSION[APP_ID.'user_data']['id'] : null ));
+define('USER_NAME',(isset($_SESSION[APP_ID.'user_data']) ? $_SESSION[APP_ID.'user_data']['full_names'] : null ));
+define('USER_EMAIL',(isset($_SESSION[APP_ID.'user_data']) ? $_SESSION[APP_ID.'user_data']['email'] : null ));
+define('USER_PHOTO',(isset($_SESSION[APP_ID.'user_data']) ? $_SESSION[APP_ID.'user_data']['photo'] : null ));

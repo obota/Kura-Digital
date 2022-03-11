@@ -3,7 +3,7 @@
  * Polling_centers Page Controller
  * @category  Controller
  */
-class Polling_centersController extends BaseController{
+class Polling_centersController extends SecureController{
 	function __construct(){
 		parent::__construct();
 		$this->tablename = "polling_centers";

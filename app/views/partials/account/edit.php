@@ -18,7 +18,7 @@ $redirect_to = $this->redirect_to;
         <div class="container">
             <div class="row ">
                 <div class="col ">
-                    <h4 class="record-title">Edit  Users</h4>
+                    <h4 class="record-title">My Account</h4>
                 </div>
             </div>
         </div>
@@ -32,7 +32,7 @@ $redirect_to = $this->redirect_to;
                 <div class="col-md-7 comp-grid">
                     <?php $this :: display_page_errors(); ?>
                     <div  class="bg-light p-3 animated fadeIn page-content">
-                        <form novalidate  id="" role="form" enctype="multipart/form-data"  class="form page-form form-horizontal needs-validation" action="<?php print_link("users/edit/$page_id/?csrf_token=$csrf_token"); ?>" method="post">
+                        <form novalidate  id="" role="form" enctype="multipart/form-data"  class="form page-form form-horizontal needs-validation" action="<?php print_link("account/edit/$page_id/?csrf_token=$csrf_token"); ?>" method="post">
                             <div>
                                 <div class="form-group ">
                                     <div class="row">
@@ -41,7 +41,7 @@ $redirect_to = $this->redirect_to;
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <input id="ctrl-full_names"  value="<?php  echo $data['full_names']; ?>" type="text" placeholder="Enter Full Names"  required="" name="full_names"  data-url="api/json/users_full_names_value_exist/" data-loading-msg="Checking availability ..." data-available-msg="Available" data-unavailable-msg="Not available" class="form-control  ctrl-check-duplicate" />
+                                                <input id="ctrl-full_names"  value="<?php  echo $data['full_names']; ?>" type="text" placeholder="Enter Full Names"  required="" name="full_names"  data-url="api/json/account_full_names_value_exist/" data-loading-msg="Checking availability ..." data-available-msg="Available" data-unavailable-msg="Not available" class="form-control  ctrl-check-duplicate" />
                                                     <div class="check-status"></div> 
                                                 </div>
                                             </div>
@@ -91,3 +91,4 @@ $redirect_to = $this->redirect_to;
                     </div>
                 </div>
             </section>
+            

@@ -3,7 +3,7 @@
  * Users Page Controller
  * @category  Controller
  */
-class UsersController extends BaseController{
+class UsersController extends SecureController{
 	function __construct(){
 		parent::__construct();
 		$this->tablename = "users";
@@ -90,9 +90,7 @@ class UsersController extends BaseController{
 		$fields = array("id", 
 			"full_names", 
 			"mobile_number", 
-			"email", 
-			"password", 
-			"photo");
+			"email");
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
@@ -154,6 +152,16 @@ class UsersController extends BaseController{
 			$password_text = $modeldata['password'];
 			//update modeldata with the password hash
 			$modeldata['password'] = $this->modeldata['password'] = password_hash($password_text , PASSWORD_DEFAULT);
+			//Check if Duplicate Record Already Exit In The Database
+			$db->where("full_names", $modeldata['full_names']);
+			if($db->has($tablename)){
+				$this->view->page_error[] = $modeldata['full_names']." Already exist!";
+			}
+			//Check if Duplicate Record Already Exit In The Database
+			$db->where("email", $modeldata['email']);
+			if($db->has($tablename)){
+				$this->view->page_error[] = $modeldata['email']." Already exist!";
+			} 
 			if($this->validated()){
 				$rec_id = $this->rec_id = $db->insert($tablename, $modeldata);
 				if($rec_id){
@@ -180,31 +188,27 @@ class UsersController extends BaseController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","email","password","photo");
+		$fields = $this->fields = array("id","full_names","mobile_number","photo");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
-			$cpassword = $postdata['confirm_password'];
-			$password = $postdata['password'];
-			if($cpassword != $password){
-				$this->view->page_error[] = "Your password confirmation is not consistent";
-			}
 			$this->rules_array = array(
 				'full_names' => 'required',
 				'mobile_number' => 'required',
-				'email' => 'required|valid_email',
-				'password' => 'required',
 				'photo' => 'required',
 			);
 			$this->sanitize_array = array(
 				'full_names' => 'sanitize_string',
 				'mobile_number' => 'sanitize_string',
-				'email' => 'sanitize_string',
 				'photo' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
-			$password_text = $modeldata['password'];
-			//update modeldata with the password hash
-			$modeldata['password'] = $this->modeldata['password'] = password_hash($password_text , PASSWORD_DEFAULT);
+			//Check if Duplicate Record Already Exit In The Database
+			if(isset($modeldata['full_names'])){
+				$db->where("full_names", $modeldata['full_names'])->where("id", $rec_id, "!=");
+				if($db->has($tablename)){
+					$this->view->page_error[] = $modeldata['full_names']." Already exist!";
+				}
+			} 
 			if($this->validated()){
 				$db->where("users.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
@@ -246,7 +250,7 @@ class UsersController extends BaseController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","email","password","photo");
+		$fields = $this->fields = array("id","full_names","mobile_number","photo");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -257,18 +261,22 @@ class UsersController extends BaseController{
 			$this->rules_array = array(
 				'full_names' => 'required',
 				'mobile_number' => 'required',
-				'email' => 'required|valid_email',
-				'password' => 'required',
 				'photo' => 'required',
 			);
 			$this->sanitize_array = array(
 				'full_names' => 'sanitize_string',
 				'mobile_number' => 'sanitize_string',
-				'email' => 'sanitize_string',
 				'photo' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
+			//Check if Duplicate Record Already Exit In The Database
+			if(isset($modeldata['full_names'])){
+				$db->where("full_names", $modeldata['full_names'])->where("id", $rec_id, "!=");
+				if($db->has($tablename)){
+					$this->view->page_error[] = $modeldata['full_names']." Already exist!";
+				}
+			} 
 			if($this->validated()){
 				$db->where("users.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);

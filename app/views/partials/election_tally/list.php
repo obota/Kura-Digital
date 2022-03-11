@@ -120,6 +120,7 @@ $show_pagination = $this->show_pagination;
                                                 <th  class="td-constituency"> Constituency</th>
                                                 <th  class="td-polling_center"> Polling Center</th>
                                                 <th  class="td-polling_station"> Polling Station</th>
+                                                <th  class="td-votes"> Votes</th>
                                                 <th  class="td-results_form"> Results Form</th>
                                                 <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-user"> User</th>
@@ -194,8 +195,10 @@ $show_pagination = $this->show_pagination;
                                                         </span>
                                                     </td>
                                                     <td class="td-constituency">
-                                                        <span  data-sourceurl="<?php print_link('api/json/election_tally_constituency_option_list'); ?>" 
-                                                            data-source='<?php print_link('api/json/election_tally_constituency_option_list'); ?>' 
+                                                        <span  data-source='<?php 
+                                                            $dependent_field = (!empty($data['county']) ? urlencode($data['county']) : null);
+                                                            print_link('api/json/election_tally_constituency_option_list/'.$dependent_field); 
+                                                            ?>' 
                                                             data-value="<?php echo $data['constituency']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -211,8 +214,10 @@ $show_pagination = $this->show_pagination;
                                                         </span>
                                                     </td>
                                                     <td class="td-polling_center">
-                                                        <span  data-sourceurl="<?php print_link('api/json/election_tally_polling_center_option_list'); ?>" 
-                                                            data-source='<?php print_link('api/json/election_tally_polling_center_option_list'); ?>' 
+                                                        <span  data-source='<?php 
+                                                            $dependent_field = (!empty($data['constituency']) ? urlencode($data['constituency']) : null);
+                                                            print_link('api/json/election_tally_polling_center_option_list/'.$dependent_field); 
+                                                            ?>' 
                                                             data-value="<?php echo $data['polling_center']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -228,8 +233,10 @@ $show_pagination = $this->show_pagination;
                                                         </span>
                                                     </td>
                                                     <td class="td-polling_station">
-                                                        <span  data-sourceurl="<?php print_link('api/json/election_tally_polling_station_option_list'); ?>" 
-                                                            data-source='<?php print_link('api/json/election_tally_polling_station_option_list'); ?>' 
+                                                        <span  data-source='<?php 
+                                                            $dependent_field = (!empty($data['polling_center']) ? urlencode($data['polling_center']) : null);
+                                                            print_link('api/json/election_tally_polling_station_option_list/'.$dependent_field); 
+                                                            ?>' 
                                                             data-value="<?php echo $data['polling_station']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
                                                             data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -242,6 +249,21 @@ $show_pagination = $this->show_pagination;
                                                             data-showbuttons="left" 
                                                             class="is-editable selectize" >
                                                             <?php echo $data['polling_station']; ?> 
+                                                        </span>
+                                                    </td>
+                                                    <td class="td-votes">
+                                                        <span  data-value="<?php echo $data['votes']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="votes" 
+                                                            data-title="Enter Votes" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" >
+                                                            <?php echo $data['votes']; ?> 
                                                         </span>
                                                     </td>
                                                     <td class="td-results_form"><?php Html :: page_link_file($data['results_form']); ?></td>

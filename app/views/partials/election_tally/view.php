@@ -105,8 +105,10 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-constituency">
                                         <th class="title"> Constituency: </th>
                                         <td class="value">
-                                            <span  data-sourceurl="<?php print_link('api/json/election_tally_constituency_option_list'); ?>" 
-                                                data-source='<?php print_link('api/json/election_tally_constituency_option_list'); ?>' 
+                                            <span  data-source='<?php 
+                                                $dependent_field = (!empty($data['county']) ? urlencode($data['county']) : null);
+                                                print_link('api/json/election_tally_constituency_option_list/'.$dependent_field); 
+                                                ?>' 
                                                 data-value="<?php echo $data['constituency']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -125,8 +127,10 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_center">
                                         <th class="title"> Polling Center: </th>
                                         <td class="value">
-                                            <span  data-sourceurl="<?php print_link('api/json/election_tally_polling_center_option_list'); ?>" 
-                                                data-source='<?php print_link('api/json/election_tally_polling_center_option_list'); ?>' 
+                                            <span  data-source='<?php 
+                                                $dependent_field = (!empty($data['constituency']) ? urlencode($data['constituency']) : null);
+                                                print_link('api/json/election_tally_polling_center_option_list/'.$dependent_field); 
+                                                ?>' 
                                                 data-value="<?php echo $data['polling_center']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -145,8 +149,10 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_station">
                                         <th class="title"> Polling Station: </th>
                                         <td class="value">
-                                            <span  data-sourceurl="<?php print_link('api/json/election_tally_polling_station_option_list'); ?>" 
-                                                data-source='<?php print_link('api/json/election_tally_polling_station_option_list'); ?>' 
+                                            <span  data-source='<?php 
+                                                $dependent_field = (!empty($data['polling_center']) ? urlencode($data['polling_center']) : null);
+                                                print_link('api/json/election_tally_polling_station_option_list/'.$dependent_field); 
+                                                ?>' 
                                                 data-value="<?php echo $data['polling_station']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -162,23 +168,27 @@ $show_export_btn = $this->show_export_btn;
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr  class="td-results_form">
-                                        <th class="title"> Results Form: </th>
+                                    <tr  class="td-votes">
+                                        <th class="title"> Votes: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['results_form']; ?>" 
+                                            <span  data-value="<?php echo $data['votes']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="results_form" 
-                                                data-title="Browse..." 
+                                                data-name="votes" 
+                                                data-title="Enter Votes" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="text" 
+                                                data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" >
-                                                <?php echo $data['results_form']; ?> 
+                                                <?php echo $data['votes']; ?> 
                                             </span>
                                         </td>
+                                    </tr>
+                                    <tr  class="td-results_form">
+                                        <th class="title"> Results Form: </th>
+                                        <td class="value"><?php Html :: page_link_file($data['results_form']); ?></td>
                                     </tr>
                                     <tr  class="td-tally_code">
                                         <th class="title"> Tally Code: </th>

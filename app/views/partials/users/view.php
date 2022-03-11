@@ -83,43 +83,7 @@ $show_export_btn = $this->show_export_btn;
                                     </tr>
                                     <tr  class="td-email">
                                         <th class="title"> Email: </th>
-                                        <td class="value">
-                                            <span  data-value="<?php echo $data['email']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="email" 
-                                                data-title="Enter Email" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="email" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" >
-                                                <?php echo $data['email']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-password">
-                                        <th class="title"> Password: </th>
-                                        <td class="value">
-                                            <span  data-value="<?php echo $data['password']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="password" 
-                                                data-title="Enter Password" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="password" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" >
-                                                <?php echo $data['password']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-photo">
-                                        <th class="title"> Photo: </th>
-                                        <td class="value"><?php Html :: page_img($data['photo'],400,400,1); ?></td>
+                                        <td class="value"> <?php echo $data['email']; ?></td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->

@@ -34,7 +34,13 @@
 			Html ::  page_js('jquery-3.3.1.min.js');
 		?>
 	</head>
-	<body id="main" class="<?php echo $body_class ?>">
+	<?php 
+		$page_id = "index";
+		if(user_login_status() == true){
+			$page_id = "main";
+		}
+	?>
+	<body id="<?php echo $page_id ?>" class="with-login <?php echo $body_class ?>">
 		<div id="page-wrapper">
 			<!-- Show progress bar when ajax upload-->
 			<div class="progress ajax-progress-bar">

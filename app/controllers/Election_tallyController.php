@@ -3,7 +3,7 @@
  * Election_tally Page Controller
  * @category  Controller
  */
-class Election_tallyController extends BaseController{
+class Election_tallyController extends SecureController{
 	function __construct(){
 		parent::__construct();
 		$this->tablename = "election_tally";
@@ -25,6 +25,7 @@ class Election_tallyController extends BaseController{
 			"constituency", 
 			"polling_center", 
 			"polling_station", 
+			"votes", 
 			"results_form", 
 			"tally_code", 
 			"user");
@@ -40,12 +41,13 @@ class Election_tallyController extends BaseController{
 				election_tally.constituency LIKE ? OR 
 				election_tally.polling_center LIKE ? OR 
 				election_tally.polling_station LIKE ? OR 
+				election_tally.votes LIKE ? OR 
 				election_tally.results_form LIKE ? OR 
 				election_tally.tally_code LIKE ? OR 
 				election_tally.user LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
@@ -69,6 +71,11 @@ class Election_tallyController extends BaseController{
 		$total_records = intval($tc->totalCount);
 		$page_limit = $pagination[1];
 		$total_pages = ceil($total_records / $page_limit);
+		if(	!empty($records)){
+			foreach($records as &$record){
+				$record['date'] = human_datetime($record['date']);
+			}
+		}
 		$data = new stdClass;
 		$data->records = $records;
 		$data->record_count = $records_count;
@@ -103,6 +110,7 @@ class Election_tallyController extends BaseController{
 			"constituency", 
 			"polling_center", 
 			"polling_station", 
+			"votes", 
 			"results_form", 
 			"tally_code", 
 			"user");
@@ -114,6 +122,7 @@ class Election_tallyController extends BaseController{
 		}
 		$record = $db->getOne($tablename, $fields );
 		if($record){
+			$record['date'] = human_datetime($record['date']);
 			$page_title = $this->view->page_title = "View  Election Tally";
 		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
 		$this->view->report_title = $page_title;
@@ -142,7 +151,7 @@ class Election_tallyController extends BaseController{
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("date","elective_position","county","constituency","polling_center","polling_station","results_form","tally_code","user");
+			$fields = $this->fields = array("date","elective_position","county","constituency","polling_center","polling_station","votes","results_form","tally_code","user");
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
 				'elective_position' => 'required',
@@ -150,6 +159,7 @@ class Election_tallyController extends BaseController{
 				'constituency' => 'required',
 				'polling_center' => 'required',
 				'polling_station' => 'required',
+				'votes' => 'required|numeric',
 				'results_form' => 'required',
 				'tally_code' => 'required',
 			);
@@ -159,6 +169,7 @@ class Election_tallyController extends BaseController{
 				'constituency' => 'sanitize_string',
 				'polling_center' => 'sanitize_string',
 				'polling_station' => 'sanitize_string',
+				'votes' => 'sanitize_string',
 				'results_form' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
 			);
@@ -192,7 +203,7 @@ $modeldata['user'] = USER_NAME;
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","date","elective_position","county","constituency","polling_center","polling_station","results_form","tally_code","user");
+		$fields = $this->fields = array("id","date","elective_position","county","constituency","polling_center","polling_station","votes","results_form","tally_code","user");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
@@ -201,6 +212,7 @@ $modeldata['user'] = USER_NAME;
 				'constituency' => 'required',
 				'polling_center' => 'required',
 				'polling_station' => 'required',
+				'votes' => 'required|numeric',
 				'results_form' => 'required',
 				'tally_code' => 'required',
 			);
@@ -210,6 +222,7 @@ $modeldata['user'] = USER_NAME;
 				'constituency' => 'sanitize_string',
 				'polling_center' => 'sanitize_string',
 				'polling_station' => 'sanitize_string',
+				'votes' => 'sanitize_string',
 				'results_form' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
 			);
@@ -257,7 +270,7 @@ $modeldata['user'] = USER_NAME;
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","date","elective_position","county","constituency","polling_center","polling_station","results_form","tally_code","user");
+		$fields = $this->fields = array("id","date","elective_position","county","constituency","polling_center","polling_station","votes","results_form","tally_code","user");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -271,6 +284,7 @@ $modeldata['user'] = USER_NAME;
 				'constituency' => 'required',
 				'polling_center' => 'required',
 				'polling_station' => 'required',
+				'votes' => 'required|numeric',
 				'results_form' => 'required',
 				'tally_code' => 'required',
 			);
@@ -280,6 +294,7 @@ $modeldata['user'] = USER_NAME;
 				'constituency' => 'sanitize_string',
 				'polling_center' => 'sanitize_string',
 				'polling_station' => 'sanitize_string',
+				'votes' => 'sanitize_string',
 				'results_form' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
 			);
