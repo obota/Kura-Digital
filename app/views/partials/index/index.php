@@ -6,13 +6,13 @@
             <div class="container">
                 <div class="row ">
                     <div class="col-md-8 comp-grid">
-                        <div class="">
-                            <div class="fadeIn animated mb-4">
-                                <div class="text-capitalize">
-                                    <h2 class="text-capitalize">Welcome To <?php echo SITE_NAME ?></h2>
-                                </div>
-                            </div>
-                        </div>
+                        <div class=""><div class="fadeIn animated mb-4">
+                            <style>
+                                body{
+                                background:url(assets/images/bg1.jpg) ;
+                                }
+                            </style>
+                        </div></div>
                     </div>
                     <div class="col-md-4 comp-grid">
                         <?php $this :: display_page_errors(); ?>

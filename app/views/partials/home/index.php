@@ -34,16 +34,16 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-4 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_verifiedvotingtally();  ?>
+                    <?php $rec_count = $comp_model->getcount_pollverification();  ?>
                     <a class="animated zoomIn record-count card bg-success text-white"  href="<?php print_link("poll_verification/") ?>">
                         <div class="row">
                             <div class="col-2">
-                                <i class="fa fa-check-square-o fa-2x "></i>
+                                <i class="fa fa-check-square-o fa-2x"></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Verified Voting Tally</div>
-                                    <small class="">Total Verified Polling Station Votes</small>
+                                    <div class="title">Poll Verification</div>
+                                    <small class="">Total Verified Polling Station Tally</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
@@ -51,16 +51,16 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-4 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_unverifiedvotingtally();  ?>
-                    <a class="animated zoomIn record-count card bg-danger text-white"  href="<?php print_link("poll_verification/") ?>">
+                    <?php $rec_count = $comp_model->getcount_electiontally();  ?>
+                    <a class="animated zoomIn record-count card bg-danger text-white"  href="<?php print_link("election_tally/") ?>">
                         <div class="row">
                             <div class="col-2">
-                                <i class="fa fa-close fa-2x"></i>
+                                <i class="fa fa-times-circle fa-2x"></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Unverified Voting Tally</div>
-                                    <small class="">Total Unverified Polling Station Votes</small>
+                                    <div class="title">Election Tally</div>
+                                    <small class="">Total Unverified Polling Station Tally</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
@@ -73,7 +73,7 @@ $current_page = $this->set_current_page_link();
     <div  class="">
         <div class="container-fluid">
             <div class="row justify-content-around">
-                <div class="col-md-7 comp-grid">
+                <div class="col-md-6 comp-grid">
                     <div class="card card-body">
                         <?php 
                         $chartdata = $comp_model->barchart_datasetfromconstituencytally();
@@ -140,7 +140,7 @@ $current_page = $this->set_current_page_link();
                         </script>
                     </div>
                 </div>
-                <div class="col-md-5 comp-grid">
+                <div class="col-md-6 comp-grid">
                     <div class="card card-body">
                         <?php 
                         $chartdata = $comp_model->piechart_tallyverification();
@@ -157,7 +157,7 @@ $current_page = $this->set_current_page_link();
                             labels : <?php echo json_encode($chartdata['labels']); ?>,
                             datasets : [
                             {
-                            label: 'Dataset from Poll Verification',
+                            label: 'Dataset from Election Tally',
                             borderColor:'RANDOMDIFFERENTCOLOR',
                             backgroundColor:[
                             <?php 

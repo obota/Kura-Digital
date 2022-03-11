@@ -133,6 +133,35 @@ $redirect_to = $this->redirect_to;
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <label class="control-label" for="role">Role <span class="text-danger">*</span></label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="">
+                                                                    <select required=""  id="ctrl-role" name="role"  placeholder="Select a value ..."    class="custom-select" >
+                                                                        <option value="">Select a value ...</option>
+                                                                        <?php
+                                                                        $role_options = Menu :: $role;
+                                                                        if(!empty($role_options)){
+                                                                        foreach($role_options as $option){
+                                                                        $value = $option['value'];
+                                                                        $label = $option['label'];
+                                                                        $selected = $this->set_field_selected('role', $value, "");
+                                                                        ?>
+                                                                        <option <?php echo $selected ?> value="<?php echo $value ?>">
+                                                                            <?php echo $label ?>
+                                                                        </option>                                   
+                                                                        <?php
+                                                                        }
+                                                                        }
+                                                                        ?>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <!--[main-form-end]-->
                                                 <div class="form-group form-submit-btn-holder text-center mt-3">

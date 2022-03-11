@@ -76,6 +76,36 @@ $redirect_to = $this->redirect_to;
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="control-label" for="role">Role <span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="">
+                                                            <select required=""  id="ctrl-role" name="role"  placeholder="Select a value ..."    class="custom-select" >
+                                                                <option value="">Select a value ...</option>
+                                                                <?php
+                                                                $role_options = Menu :: $role;
+                                                                $field_value = $data['role'];
+                                                                if(!empty($role_options)){
+                                                                foreach($role_options as $option){
+                                                                $value = $option['value'];
+                                                                $label = $option['label'];
+                                                                $selected = ( $value == $field_value ? 'selected' : null );
+                                                                ?>
+                                                                <option <?php echo $selected ?> value="<?php echo $value ?>">
+                                                                    <?php echo $label ?>
+                                                                </option>                                   
+                                                                <?php
+                                                                }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="form-ajax-status"></div>
                                         <div class="form-group text-center">

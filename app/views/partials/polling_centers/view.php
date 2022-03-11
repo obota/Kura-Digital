@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("polling_centers/add");
+$can_edit = ACL::is_allowed("polling_centers/edit");
+$can_view = ACL::is_allowed("polling_centers/view");
+$can_delete = ACL::is_allowed("polling_centers/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -48,7 +55,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-county_code">
                                         <th class="title"> County Code: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['county_code']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['county_code']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="county_code" 
@@ -58,7 +65,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['county_code']; ?> 
                                             </span>
                                         </td>
@@ -66,7 +73,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-county_name">
                                         <th class="title"> County Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['county_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['county_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="county_name" 
@@ -76,7 +83,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['county_name']; ?> 
                                             </span>
                                         </td>
@@ -84,7 +91,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-constituency_code">
                                         <th class="title"> Constituency Code: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['constituency_code']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['constituency_code']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="constituency_code" 
@@ -94,7 +101,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['constituency_code']; ?> 
                                             </span>
                                         </td>
@@ -102,7 +109,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-constituency_name">
                                         <th class="title"> Constituency Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['constituency_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['constituency_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="constituency_name" 
@@ -112,7 +119,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['constituency_name']; ?> 
                                             </span>
                                         </td>
@@ -120,7 +127,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_center_code">
                                         <th class="title"> Polling Center Code: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['polling_center_code']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['polling_center_code']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="polling_center_code" 
@@ -130,7 +137,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['polling_center_code']; ?> 
                                             </span>
                                         </td>
@@ -138,7 +145,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_center_name">
                                         <th class="title"> Polling Center Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['polling_center_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['polling_center_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="polling_center_name" 
@@ -148,7 +155,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['polling_center_name']; ?> 
                                             </span>
                                         </td>
@@ -156,7 +163,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_station_name">
                                         <th class="title"> Polling Station Name: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['polling_station_name']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['polling_station_name']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("polling_centers/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="polling_station_name" 
@@ -166,7 +173,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['polling_station_name']; ?> 
                                             </span>
                                         </td>
@@ -203,12 +210,16 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("polling_centers/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
+                                                <?php if($can_delete){ ?>
                                                 <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("polling_centers/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

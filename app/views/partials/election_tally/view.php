@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("election_tally/add");
+$can_edit = ACL::is_allowed("election_tally/edit");
+$can_view = ACL::is_allowed("election_tally/view");
+$can_delete = ACL::is_allowed("election_tally/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -48,7 +55,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-date">
                                         <th class="title"> Date: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['date']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['date']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="date" 
@@ -58,7 +65,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['date']; ?> 
                                             </span>
                                         </td>
@@ -66,7 +73,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-elective_position">
                                         <th class="title"> Elective Position: </th>
                                         <td class="value">
-                                            <span  data-source='<?php echo json_encode_quote(Menu :: $elective_position); ?>' 
+                                            <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $elective_position); ?>' 
                                                 data-value="<?php echo $data['elective_position']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
@@ -77,7 +84,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="select" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['elective_position']; ?> 
                                             </span>
                                         </td>
@@ -85,7 +92,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-county">
                                         <th class="title"> County: </th>
                                         <td class="value">
-                                            <span  data-sourceurl="<?php print_link('api/json/election_tally_county_option_list'); ?>" 
+                                            <span <?php if($can_edit){ ?> data-sourceurl="<?php print_link('api/json/election_tally_county_option_list'); ?>" 
                                                 data-source='<?php print_link('api/json/election_tally_county_option_list'); ?>' 
                                                 data-value="<?php echo $data['county']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
@@ -97,7 +104,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="selectize" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable selectize" >
+                                                class="is-editable selectize" <?php } ?>>
                                                 <?php echo $data['county']; ?> 
                                             </span>
                                         </td>
@@ -105,7 +112,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-constituency">
                                         <th class="title"> Constituency: </th>
                                         <td class="value">
-                                            <span  data-source='<?php 
+                                            <span <?php if($can_edit){ ?> data-source='<?php 
                                                 $dependent_field = (!empty($data['county']) ? urlencode($data['county']) : null);
                                                 print_link('api/json/election_tally_constituency_option_list/'.$dependent_field); 
                                                 ?>' 
@@ -119,7 +126,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="selectize" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable selectize" >
+                                                class="is-editable selectize" <?php } ?>>
                                                 <?php echo $data['constituency']; ?> 
                                             </span>
                                         </td>
@@ -127,7 +134,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_center">
                                         <th class="title"> Polling Center: </th>
                                         <td class="value">
-                                            <span  data-source='<?php 
+                                            <span <?php if($can_edit){ ?> data-source='<?php 
                                                 $dependent_field = (!empty($data['constituency']) ? urlencode($data['constituency']) : null);
                                                 print_link('api/json/election_tally_polling_center_option_list/'.$dependent_field); 
                                                 ?>' 
@@ -141,7 +148,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="selectize" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable selectize" >
+                                                class="is-editable selectize" <?php } ?>>
                                                 <?php echo $data['polling_center']; ?> 
                                             </span>
                                         </td>
@@ -149,7 +156,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-polling_station">
                                         <th class="title"> Polling Station: </th>
                                         <td class="value">
-                                            <span  data-source='<?php 
+                                            <span <?php if($can_edit){ ?> data-source='<?php 
                                                 $dependent_field = (!empty($data['polling_center']) ? urlencode($data['polling_center']) : null);
                                                 print_link('api/json/election_tally_polling_station_option_list/'.$dependent_field); 
                                                 ?>' 
@@ -163,7 +170,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="selectize" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable selectize" >
+                                                class="is-editable selectize" <?php } ?>>
                                                 <?php echo $data['polling_station']; ?> 
                                             </span>
                                         </td>
@@ -171,7 +178,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-total_votes">
                                         <th class="title"> Total Votes: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['total_votes']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['total_votes']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="total_votes" 
@@ -181,7 +188,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['total_votes']; ?> 
                                             </span>
                                         </td>
@@ -189,7 +196,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-votes">
                                         <th class="title"> Votes: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['votes']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['votes']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="votes" 
@@ -199,44 +206,8 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="number" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['votes']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-rejected_votes">
-                                        <th class="title"> Rejected Votes: </th>
-                                        <td class="value">
-                                            <span  data-value="<?php echo $data['rejected_votes']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="rejected_votes" 
-                                                data-title="Enter Rejected Votes" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="number" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" >
-                                                <?php echo $data['rejected_votes']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-spoilt_votes">
-                                        <th class="title"> Spoilt Votes: </th>
-                                        <td class="value">
-                                            <span  data-value="<?php echo $data['spoilt_votes']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="spoilt_votes" 
-                                                data-title="Enter Spoilt Votes" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="number" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" >
-                                                <?php echo $data['spoilt_votes']; ?> 
                                             </span>
                                         </td>
                                     </tr>
@@ -247,7 +218,7 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-tally_code">
                                         <th class="title"> Tally Code: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['tally_code']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="tally_code" 
@@ -257,15 +228,15 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['tally_code']; ?> 
                                             </span>
                                         </td>
                                     </tr>
                                     <tr  class="td-user">
-                                        <th class="title"> User: </th>
+                                        <th class="title"> Added By: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['user']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['user']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="user" 
@@ -275,8 +246,26 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['user']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-status">
+                                        <th class="title"> Status: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['status']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="status" 
+                                                data-title="Enter Status" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['status']; ?> 
                                             </span>
                                         </td>
                                     </tr>
@@ -312,9 +301,11 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("election_tally/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

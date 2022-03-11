@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("poll_verification/add");
+$can_edit = ACL::is_allowed("poll_verification/edit");
+$can_view = ACL::is_allowed("poll_verification/view");
+$can_delete = ACL::is_allowed("poll_verification/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -36,30 +43,35 @@ $show_export_btn = $this->show_export_btn;
                     <?php $this :: display_page_errors(); ?>
                     <div  class="card animated fadeIn page-content">
                         <?php
+                        $sum_of_votes = 0;
+                        $sum_of_total_votes = 0;
                         $counter = 0;
                         if(!empty($data)){
                         $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
+                        $sum_of_votes = $sum_of_votes + $data['votes'];
+                        $sum_of_total_votes = $sum_of_total_votes + $data['total_votes'];
                         $counter++;
                         ?>
                         <div id="page-report-body" class="">
                             <table class="table table-hover table-borderless table-striped">
                                 <!-- Table Body Start -->
                                 <tbody class="page-data" id="page-data-<?php echo $page_element_id; ?>">
-                                    <tr  class="td-tally_code">
-                                        <th class="title"> Tally Code: </th>
+                                    <tr  class="td-date">
+                                        <th class="title"> Date: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['tally_code']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
+                                                data-value="<?php echo $data['date']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="tally_code" 
-                                                data-title="Enter Tally Code" 
+                                                data-name="date" 
+                                                data-title="Enter Date" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="text" 
+                                                data-type="flatdatetimepicker" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
-                                                <?php echo $data['tally_code']; ?> 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['date']; ?> 
                                             </span>
                                         </td>
                                     </tr>
@@ -83,30 +95,68 @@ $show_export_btn = $this->show_export_btn;
                                         <th class="title"> Polling Station: </th>
                                         <td class="value"> <?php echo $data['election_tally_polling_station']; ?></td>
                                     </tr>
-                                    <tr  class="td-election_tally_results_form">
-                                        <th class="title"> Results Form: </th>
-                                        <td class="value"><?php Html :: page_link_file($data['election_tally_results_form']); ?></td>
-                                    </tr>
-                                    <tr  class="td-election_tally_votes">
+                                    <tr  class="td-votes">
                                         <th class="title"> Garnered Votes: </th>
-                                        <td class="value"> <?php echo $data['election_tally_votes']; ?></td>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['votes']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="votes" 
+                                                data-title="Enter Garnered Votes" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['votes']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
-                                    <tr  class="td-election_tally_total_votes">
+                                    <tr  class="td-total_votes">
                                         <th class="title"> Total Votes: </th>
-                                        <td class="value"> <?php echo $data['election_tally_total_votes']; ?></td>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['total_votes']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="total_votes" 
+                                                data-title="Enter Total Votes" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['total_votes']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
-                                    <tr  class="td-election_tally_rejected_votes">
-                                        <th class="title"> Rejected Votes: </th>
-                                        <td class="value"> <?php echo $data['election_tally_rejected_votes']; ?></td>
+                                    <tr  class="td-results_form">
+                                        <th class="title"> Results Form: </th>
+                                        <td class="value"><?php Html :: page_link_file($data['results_form']); ?></td>
                                     </tr>
-                                    <tr  class="td-election_tally_spoilt_votes">
-                                        <th class="title"> Spoilt Votes: </th>
-                                        <td class="value"> <?php echo $data['election_tally_spoilt_votes']; ?></td>
+                                    <tr  class="td-tally_code">
+                                        <th class="title"> Tally Code: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="tally_code" 
+                                                data-title="Enter Tally Code" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['tally_code']; ?> 
+                                            </span>
+                                        </td>
                                     </tr>
                                     <tr  class="td-status">
                                         <th class="title"> Status: </th>
                                         <td class="value">
-                                            <span  data-source='<?php echo json_encode_quote(Menu :: $status); ?>' 
+                                            <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $status); ?>' 
                                                 data-value="<?php echo $data['status']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
@@ -117,15 +167,15 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="radiolist" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['status']; ?> 
                                             </span>
                                         </td>
                                     </tr>
                                     <tr  class="td-user">
-                                        <th class="title"> User: </th>
+                                        <th class="title"> Verified By: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['user']; ?>" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['user']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="user" 
@@ -135,7 +185,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
-                                                class="is-editable" >
+                                                class="is-editable" <?php } ?>>
                                                 <?php echo $data['user']; ?> 
                                             </span>
                                         </td>
@@ -172,9 +222,11 @@ $show_export_btn = $this->show_export_btn;
                                                         </a>
                                                     </div>
                                                 </div>
+                                                <?php if($can_edit){ ?>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("poll_verification/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
+                                                <?php } ?>
                                             </div>
                                             <?php
                                             }

@@ -1,3 +1,10 @@
+<?php 
+//check if current user role is allowed access to the pages
+$can_add = ACL::is_allowed("users/add");
+$can_edit = ACL::is_allowed("users/edit");
+$can_view = ACL::is_allowed("users/view");
+$can_delete = ACL::is_allowed("users/delete");
+?>
 <?php
 $comp_model = new SharedController;
 $page_element_id = "view-page-" . random_str();
@@ -93,7 +100,7 @@ $show_export_btn = $this->show_export_btn;
                                                     <tr  class="td-full_names">
                                                         <th class="title"> Full Names: </th>
                                                         <td class="value">
-                                                            <span  data-value="<?php echo $data['full_names']; ?>" 
+                                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['full_names']; ?>" 
                                                                 data-pk="<?php echo $data['id'] ?>" 
                                                                 data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
                                                                 data-name="full_names" 
@@ -103,7 +110,7 @@ $show_export_btn = $this->show_export_btn;
                                                                 data-type="text" 
                                                                 data-mode="popover" 
                                                                 data-showbuttons="left" 
-                                                                class="is-editable" >
+                                                                class="is-editable" <?php } ?>>
                                                                 <?php echo $data['full_names']; ?> 
                                                             </span>
                                                         </td>
@@ -111,7 +118,7 @@ $show_export_btn = $this->show_export_btn;
                                                     <tr  class="td-mobile_number">
                                                         <th class="title"> Mobile Number: </th>
                                                         <td class="value">
-                                                            <span  data-value="<?php echo $data['mobile_number']; ?>" 
+                                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['mobile_number']; ?>" 
                                                                 data-pk="<?php echo $data['id'] ?>" 
                                                                 data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
                                                                 data-name="mobile_number" 
@@ -121,7 +128,7 @@ $show_export_btn = $this->show_export_btn;
                                                                 data-type="text" 
                                                                 data-mode="popover" 
                                                                 data-showbuttons="left" 
-                                                                class="is-editable" >
+                                                                class="is-editable" <?php } ?>>
                                                                 <?php echo $data['mobile_number']; ?> 
                                                             </span>
                                                         </td>
@@ -129,6 +136,25 @@ $show_export_btn = $this->show_export_btn;
                                                     <tr  class="td-email">
                                                         <th class="title"> Email: </th>
                                                         <td class="value"> <?php echo $data['email']; ?></td>
+                                                    </tr>
+                                                    <tr  class="td-role">
+                                                        <th class="title"> Role: </th>
+                                                        <td class="value">
+                                                            <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $role); ?>' 
+                                                                data-value="<?php echo $data['role']; ?>" 
+                                                                data-pk="<?php echo $data['id'] ?>" 
+                                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
+                                                                data-name="role" 
+                                                                data-title="Select a value ..." 
+                                                                data-placement="left" 
+                                                                data-toggle="click" 
+                                                                data-type="select" 
+                                                                data-mode="popover" 
+                                                                data-showbuttons="left" 
+                                                                class="is-editable" <?php } ?>>
+                                                                <?php echo $data['role']; ?> 
+                                                            </span>
+                                                        </td>
                                                     </tr>
                                                 </tbody>    
                                             </table>

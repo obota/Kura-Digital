@@ -13,7 +13,30 @@ class ACL
 	 * Use "*" to grant all access right to particular user role
 	 * @var array
 	 */
-	public static $role_pages = '*';
+	public static $role_pages = array(
+			'administrator' =>
+						array(
+							'users' => array('list','view','add','edit', 'editfield','delete','import_data','userregister','accountedit','accountview'),
+							'election_tally' => array('list','view','add','edit', 'editfield','delete','pollverification'),
+							'polling_centers' => array('list','view','add','edit', 'editfield','delete'),
+							'poll_verification' => array('list','view','add','edit', 'editfield','delete'),
+							'role_permissions' => array('list','view','add','edit', 'editfield','delete'),
+							'roles' => array('list','view','add','edit', 'editfield','delete')
+						),
+		
+			'verification manager' =>
+						array(
+							'election_tally' => array('list','view','pollverification'),
+							'polling_centers' => array('list','view','add','edit', 'editfield'),
+							'poll_verification' => array('list','view','add','edit', 'editfield')
+						),
+		
+			'agent' =>
+						array(
+							'election_tally' => array('list','view','add','edit', 'editfield'),
+							'poll_verification' => array('list','view')
+						)
+		);
 
 	/**
 	 * Current user role name

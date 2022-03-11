@@ -20,7 +20,8 @@ class AccountController extends SecureController{
 		$fields = array("id", 
 			"full_names", 
 			"mobile_number", 
-			"email");
+			"email", 
+			"role");
 		$user = $db->getOne($tablename , $fields);
 		if(!empty($user)){
 			$page_title = $this->view->page_title = "My Account";
@@ -42,18 +43,20 @@ class AccountController extends SecureController{
 		$rec_id = $this->rec_id = USER_ID;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","photo");
+		$fields = $this->fields = array("id","full_names","mobile_number","photo","role");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
 				'full_names' => 'required',
 				'mobile_number' => 'required',
 				'photo' => 'required',
+				'role' => 'required',
 			);
 			$this->sanitize_array = array(
 				'full_names' => 'sanitize_string',
 				'mobile_number' => 'sanitize_string',
 				'photo' => 'sanitize_string',
+				'role' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			//Check if Duplicate Record Already Exit In The Database

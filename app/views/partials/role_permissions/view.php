@@ -1,9 +1,9 @@
 <?php 
 //check if current user role is allowed access to the pages
-$can_add = ACL::is_allowed("users/add");
-$can_edit = ACL::is_allowed("users/edit");
-$can_view = ACL::is_allowed("users/view");
-$can_delete = ACL::is_allowed("users/delete");
+$can_add = ACL::is_allowed("role_permissions/add");
+$can_edit = ACL::is_allowed("role_permissions/edit");
+$can_view = ACL::is_allowed("role_permissions/view");
+$can_delete = ACL::is_allowed("role_permissions/delete");
 ?>
 <?php
 $comp_model = new SharedController;
@@ -28,7 +28,7 @@ $show_export_btn = $this->show_export_btn;
         <div class="container">
             <div class="row ">
                 <div class="col ">
-                    <h4 class="record-title">View  Users</h4>
+                    <h4 class="record-title">View  Role Permissions</h4>
                 </div>
             </div>
         </div>
@@ -45,69 +45,68 @@ $show_export_btn = $this->show_export_btn;
                         <?php
                         $counter = 0;
                         if(!empty($data)){
-                        $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
+                        $rec_id = (!empty($data['permission_id']) ? urlencode($data['permission_id']) : null);
                         $counter++;
                         ?>
                         <div id="page-report-body" class="">
                             <table class="table table-hover table-borderless table-striped">
                                 <!-- Table Body Start -->
                                 <tbody class="page-data" id="page-data-<?php echo $page_element_id; ?>">
-                                    <tr  class="td-full_names">
-                                        <th class="title"> Full Names: </th>
+                                    <tr  class="td-permission_id">
+                                        <th class="title"> Permission Id: </th>
+                                        <td class="value"> <?php echo $data['permission_id']; ?></td>
+                                    </tr>
+                                    <tr  class="td-role_id">
+                                        <th class="title"> Role Id: </th>
                                         <td class="value">
-                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['full_names']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="full_names" 
-                                                data-title="Enter Full Names" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['role_id']; ?>" 
+                                                data-pk="<?php echo $data['permission_id'] ?>" 
+                                                data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                data-name="role_id" 
+                                                data-title="Enter Role Id" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['role_id']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-page_name">
+                                        <th class="title"> Page Name: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['page_name']; ?>" 
+                                                data-pk="<?php echo $data['permission_id'] ?>" 
+                                                data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                data-name="page_name" 
+                                                data-title="Enter Page Name" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
-                                                <?php echo $data['full_names']; ?> 
+                                                <?php echo $data['page_name']; ?> 
                                             </span>
                                         </td>
                                     </tr>
-                                    <tr  class="td-mobile_number">
-                                        <th class="title"> Mobile Number: </th>
+                                    <tr  class="td-action_name">
+                                        <th class="title"> Action Name: </th>
                                         <td class="value">
-                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['mobile_number']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="mobile_number" 
-                                                data-title="Enter Mobile Number" 
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['action_name']; ?>" 
+                                                data-pk="<?php echo $data['permission_id'] ?>" 
+                                                data-url="<?php print_link("role_permissions/editfield/" . urlencode($data['permission_id'])); ?>" 
+                                                data-name="action_name" 
+                                                data-title="Enter Action Name" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
                                                 data-type="text" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" <?php } ?>>
-                                                <?php echo $data['mobile_number']; ?> 
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr  class="td-email">
-                                        <th class="title"> Email: </th>
-                                        <td class="value"> <?php echo $data['email']; ?></td>
-                                    </tr>
-                                    <tr  class="td-role">
-                                        <th class="title"> Role: </th>
-                                        <td class="value">
-                                            <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $role); ?>' 
-                                                data-value="<?php echo $data['role']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="role" 
-                                                data-title="Select a value ..." 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="select" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" <?php } ?>>
-                                                <?php echo $data['role']; ?> 
+                                                <?php echo $data['action_name']; ?> 
                                             </span>
                                         </td>
                                     </tr>
@@ -144,12 +143,12 @@ $show_export_btn = $this->show_export_btn;
                                                     </div>
                                                 </div>
                                                 <?php if($can_edit){ ?>
-                                                <a class="btn btn-sm btn-info"  href="<?php print_link("users/edit/$rec_id"); ?>">
+                                                <a class="btn btn-sm btn-info"  href="<?php print_link("role_permissions/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
                                                 </a>
                                                 <?php } ?>
                                                 <?php if($can_delete){ ?>
-                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("users/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
+                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("role_permissions/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
                                                     <i class="fa fa-times"></i> Delete
                                                 </a>
                                                 <?php } ?>

@@ -42,6 +42,20 @@ class Menu{
 		
 	
 	
+			public static $role = array(
+		array(
+			"value" => "Administrator", 
+			"label" => "Administrator", 
+		),
+		array(
+			"value" => "Verification Manager", 
+			"label" => "Verification Manager", 
+		),
+		array(
+			"value" => "Agent", 
+			"label" => "Agent", 
+		),);
+		
 			public static $elective_position = array(
 		array(
 			"value" => "President", 

@@ -80,6 +80,17 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * election_tally_tally_code_value_exist Model Action
+     * @return array
+     */
+	function election_tally_tally_code_value_exist($val){
+		$db = $this->GetModel();
+		$db->where("tally_code", $val);
+		$exist = $db->has("election_tally");
+		return $exist;
+	}
+
+	/**
      * poll_verification_election_tally_county_option_list Model Action
      * @return array
      */
@@ -131,6 +142,17 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * poll_verification_tally_code_value_exist Model Action
+     * @return array
+     */
+	function poll_verification_tally_code_value_exist($val){
+		$db = $this->GetModel();
+		$db->where("tally_code", $val);
+		$exist = $db->has("poll_verification");
+		return $exist;
+	}
+
+	/**
      * getcount_totalpollingstations Model Action
      * @return Value
      */
@@ -147,12 +169,12 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_verifiedvotingtally Model Action
+     * getcount_pollverification Model Action
      * @return Value
      */
-	function getcount_verifiedvotingtally(){
+	function getcount_pollverification(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification WHERE status = 'Verified'";
+		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification";
 		$queryparams = null;
 		$val = $db->rawQueryValue($sqltext, $queryparams);
 		
@@ -163,12 +185,12 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_unverifiedvotingtally Model Action
+     * getcount_electiontally Model Action
      * @return Value
      */
-	function getcount_unverifiedvotingtally(){
+	function getcount_electiontally(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification WHERE status ='Pending Verification'";
+		$sqltext = "SELECT COUNT(*) AS num FROM election_tally WHERE status ='Pending Verification'";
 		$queryparams = null;
 		$val = $db->rawQueryValue($sqltext, $queryparams);
 		
@@ -215,7 +237,7 @@ class SharedController extends BaseController{
 		);
 		
 		//set query result for dataset 1
-		$sqltext = "SELECT  COUNT(pv.id) AS count_of_id, pv.status FROM poll_verification AS pv GROUP BY pv.status";
+		$sqltext = "SELECT  SUM(et.votes) AS sum_of_votes, et.status FROM election_tally AS et GROUP BY et.status";
 		$queryparams = null;
 		$dataset1 = $db->rawQuery($sqltext, $queryparams);
 		$dataset_data =  array_column($dataset1, 'count_of_id');

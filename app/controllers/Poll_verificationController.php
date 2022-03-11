@@ -19,17 +19,16 @@ class Poll_verificationController extends SecureController{
 		$db = $this->GetModel();
 		$tablename = $this->tablename;
 		$fields = array("poll_verification.id", 
-			"poll_verification.tally_code", 
+			"poll_verification.date", 
 			"election_tally.elective_position AS election_tally_elective_position", 
 			"election_tally.county AS election_tally_county", 
 			"election_tally.constituency AS election_tally_constituency", 
 			"election_tally.polling_center AS election_tally_polling_center", 
 			"election_tally.polling_station AS election_tally_polling_station", 
-			"election_tally.results_form AS election_tally_results_form", 
-			"election_tally.votes AS election_tally_votes", 
-			"election_tally.rejected_votes AS election_tally_rejected_votes", 
-			"election_tally.spoilt_votes AS election_tally_spoilt_votes", 
-			"election_tally.total_votes AS election_tally_total_votes", 
+			"poll_verification.votes", 
+			"poll_verification.total_votes", 
+			"poll_verification.results_form", 
+			"poll_verification.tally_code", 
 			"poll_verification.status", 
 			"poll_verification.user");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
@@ -38,26 +37,28 @@ class Poll_verificationController extends SecureController{
 			$text = trim($request->search); 
 			$search_condition = "(
 				poll_verification.id LIKE ? OR 
-				poll_verification.tally_code LIKE ? OR 
-				election_tally.id LIKE ? OR 
-				election_tally.date LIKE ? OR 
+				poll_verification.date LIKE ? OR 
 				election_tally.elective_position LIKE ? OR 
 				election_tally.county LIKE ? OR 
 				election_tally.constituency LIKE ? OR 
 				election_tally.polling_center LIKE ? OR 
 				election_tally.polling_station LIKE ? OR 
+				poll_verification.votes LIKE ? OR 
+				poll_verification.total_votes LIKE ? OR 
+				poll_verification.results_form LIKE ? OR 
+				poll_verification.tally_code LIKE ? OR 
+				poll_verification.status LIKE ? OR 
+				poll_verification.user LIKE ? OR 
+				election_tally.results_form LIKE ? OR 
+				election_tally.id LIKE ? OR 
+				election_tally.date LIKE ? OR 
 				election_tally.tally_code LIKE ? OR 
 				election_tally.user LIKE ? OR 
-				election_tally.results_form LIKE ? OR 
 				election_tally.votes LIKE ? OR 
-				election_tally.rejected_votes LIKE ? OR 
-				election_tally.spoilt_votes LIKE ? OR 
-				election_tally.total_votes LIKE ? OR 
-				poll_verification.status LIKE ? OR 
-				poll_verification.user LIKE ?
+				election_tally.total_votes LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
@@ -82,6 +83,11 @@ class Poll_verificationController extends SecureController{
 		$total_records = intval($tc->totalCount);
 		$page_limit = $pagination[1];
 		$total_pages = ceil($total_records / $page_limit);
+		if(	!empty($records)){
+			foreach($records as &$record){
+				$record['date'] = human_datetime($record['date']);
+			}
+		}
 		$data = new stdClass;
 		$data->records = $records;
 		$data->record_count = $records_count;
@@ -110,17 +116,16 @@ class Poll_verificationController extends SecureController{
 		$rec_id = $this->rec_id = urldecode($rec_id);
 		$tablename = $this->tablename;
 		$fields = array("poll_verification.id", 
-			"poll_verification.tally_code", 
+			"poll_verification.date", 
 			"election_tally.elective_position AS election_tally_elective_position", 
 			"election_tally.county AS election_tally_county", 
 			"election_tally.constituency AS election_tally_constituency", 
 			"election_tally.polling_center AS election_tally_polling_center", 
 			"election_tally.polling_station AS election_tally_polling_station", 
-			"election_tally.results_form AS election_tally_results_form", 
-			"election_tally.votes AS election_tally_votes", 
-			"election_tally.total_votes AS election_tally_total_votes", 
-			"election_tally.rejected_votes AS election_tally_rejected_votes", 
-			"election_tally.spoilt_votes AS election_tally_spoilt_votes", 
+			"poll_verification.votes", 
+			"poll_verification.total_votes", 
+			"poll_verification.results_form", 
+			"poll_verification.tally_code", 
 			"poll_verification.status", 
 			"poll_verification.user");
 		if($value){
@@ -132,6 +137,7 @@ class Poll_verificationController extends SecureController{
 		$db->join("election_tally", "poll_verification.tally_code = election_tally.tally_code", "INNER ");  
 		$record = $db->getOne($tablename, $fields );
 		if($record){
+			$record['date'] = human_datetime($record['date']);
 			$page_title = $this->view->page_title = "View  Poll Verification";
 		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
 		$this->view->report_title = $page_title;
@@ -160,20 +166,44 @@ class Poll_verificationController extends SecureController{
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("tally_code","status","user");
+			$fields = $this->fields = array("date","tally_code","results_form","votes","total_votes","status","user");
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
+				'date' => 'required',
+				'votes' => 'required',
+				'total_votes' => 'required',
+				'status' => 'required',
 			);
 			$this->sanitize_array = array(
+				'date' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
+				'results_form' => 'sanitize_string',
+				'votes' => 'sanitize_string',
+				'total_votes' => 'sanitize_string',
 				'status' => 'sanitize_string',
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			$modeldata['user'] = USER_NAME;
+			//Check if Duplicate Record Already Exit In The Database
+			$db->where("tally_code", $modeldata['tally_code']);
+			if($db->has($tablename)){
+				$this->view->page_error[] = $modeldata['tally_code']." Already exist!";
+			} 
 			if($this->validated()){
 				$rec_id = $this->rec_id = $db->insert($tablename, $modeldata);
 				if($rec_id){
+		# Statement to execute after adding record
+		//variable declaration
+$tallyCode = $modeldata['tally_code'];
+$status    = "Verified";
+//update election tally
+$table_data = array(
+    "status" => $status,
+);
+$db->where("tally_code", $tallyCode);
+$bool = $db->update("election_tally", $table_data);
+		# End of after add statement
 					$this->set_flash_msg("Record added successfully", "success");
 					return	$this->redirect("poll_verification");
 				}
@@ -197,17 +227,32 @@ class Poll_verificationController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","tally_code","status","user");
+		$fields = $this->fields = array("id","date","tally_code","results_form","votes","total_votes","status","user");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
+				'date' => 'required',
+				'votes' => 'required',
+				'total_votes' => 'required',
+				'status' => 'required',
 			);
 			$this->sanitize_array = array(
+				'date' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
+				'results_form' => 'sanitize_string',
+				'votes' => 'sanitize_string',
+				'total_votes' => 'sanitize_string',
 				'status' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			$modeldata['user'] = USER_NAME;
+			//Check if Duplicate Record Already Exit In The Database
+			if(isset($modeldata['tally_code'])){
+				$db->where("tally_code", $modeldata['tally_code'])->where("id", $rec_id, "!=");
+				if($db->has($tablename)){
+					$this->view->page_error[] = $modeldata['tally_code']." Already exist!";
+				}
+			} 
 			if($this->validated()){
 				$db->where("poll_verification.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
@@ -249,7 +294,7 @@ class Poll_verificationController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","tally_code","status","user");
+		$fields = $this->fields = array("id","date","tally_code","results_form","votes","total_votes","status","user");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -258,13 +303,28 @@ class Poll_verificationController extends SecureController{
 			$postdata[$fieldname] = $fieldvalue;
 			$postdata = $this->format_request_data($postdata);
 			$this->rules_array = array(
+				'date' => 'required',
+				'votes' => 'required',
+				'total_votes' => 'required',
+				'status' => 'required',
 			);
 			$this->sanitize_array = array(
+				'date' => 'sanitize_string',
 				'tally_code' => 'sanitize_string',
+				'results_form' => 'sanitize_string',
+				'votes' => 'sanitize_string',
+				'total_votes' => 'sanitize_string',
 				'status' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
+			//Check if Duplicate Record Already Exit In The Database
+			if(isset($modeldata['tally_code'])){
+				$db->where("tally_code", $modeldata['tally_code'])->where("id", $rec_id, "!=");
+				if($db->has($tablename)){
+					$this->view->page_error[] = $modeldata['tally_code']." Already exist!";
+				}
+			} 
 			if($this->validated()){
 				$db->where("poll_verification.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);

@@ -1,12 +1,12 @@
 <?php 
 /**
- * Users Page Controller
+ * Role_permissions Page Controller
  * @category  Controller
  */
-class UsersController extends SecureController{
+class Role_permissionsController extends SecureController{
 	function __construct(){
 		parent::__construct();
-		$this->tablename = "users";
+		$this->tablename = "role_permissions";
 	}
 	/**
      * List page records
@@ -18,32 +18,27 @@ class UsersController extends SecureController{
 		$request = $this->request;
 		$db = $this->GetModel();
 		$tablename = $this->tablename;
-		$fields = array("id", 
-			"full_names", 
-			"mobile_number", 
-			"email", 
-			"photo", 
-			"role");
+		$fields = array("permission_id", 
+			"role_id", 
+			"page_name", 
+			"action_name");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
 		//search table record
 		if(!empty($request->search)){
 			$text = trim($request->search); 
 			$search_condition = "(
-				users.id LIKE ? OR 
-				users.full_names LIKE ? OR 
-				users.mobile_number LIKE ? OR 
-				users.email LIKE ? OR 
-				users.password LIKE ? OR 
-				users.photo LIKE ? OR 
-				users.role LIKE ?
+				role_permissions.permission_id LIKE ? OR 
+				role_permissions.role_id LIKE ? OR 
+				role_permissions.page_name LIKE ? OR 
+				role_permissions.action_name LIKE ?
 			)";
 			$search_params = array(
-				"%$text%","%$text%","%$text%","%$text%","%$text%","%$text%","%$text%"
+				"%$text%","%$text%","%$text%","%$text%"
 			);
 			//setting search conditions
 			$db->where($search_condition, $search_params);
 			 //template to use when ajax search
-			$this->view->search_template = "users/search.php";
+			$this->view->search_template = "role_permissions/search.php";
 		}
 		if(!empty($request->orderby)){
 			$orderby = $request->orderby;
@@ -51,7 +46,7 @@ class UsersController extends SecureController{
 			$db->orderBy($orderby, $ordertype);
 		}
 		else{
-			$db->orderBy("users.id", ORDER_TYPE);
+			$db->orderBy("role_permissions.permission_id", ORDER_TYPE);
 		}
 		if($fieldname){
 			$db->where($fieldname , $fieldvalue); //filter by a single field name
@@ -70,13 +65,13 @@ class UsersController extends SecureController{
 		if($db->getLastError()){
 			$this->set_page_error();
 		}
-		$page_title = $this->view->page_title = "Users";
+		$page_title = $this->view->page_title = "Role Permissions";
 		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
 		$this->view->report_title = $page_title;
 		$this->view->report_layout = "report_layout.php";
 		$this->view->report_paper_size = "A4";
 		$this->view->report_orientation = "portrait";
-		$this->render_view("users/list.php", $data); //render the full page
+		$this->render_view("role_permissions/list.php", $data); //render the full page
 	}
 	/**
      * View record detail 
@@ -89,20 +84,19 @@ class UsersController extends SecureController{
 		$db = $this->GetModel();
 		$rec_id = $this->rec_id = urldecode($rec_id);
 		$tablename = $this->tablename;
-		$fields = array("id", 
-			"full_names", 
-			"mobile_number", 
-			"email", 
-			"role");
+		$fields = array("permission_id", 
+			"role_id", 
+			"page_name", 
+			"action_name");
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
 		else{
-			$db->where("users.id", $rec_id);; //select record based on primary key
+			$db->where("role_permissions.permission_id", $rec_id);; //select record based on primary key
 		}
 		$record = $db->getOne($tablename, $fields );
 		if($record){
-			$page_title = $this->view->page_title = "View  Users";
+			$page_title = $this->view->page_title = "View  Role Permissions";
 		$this->view->report_filename = date('Y-m-d') . '-' . $page_title;
 		$this->view->report_title = $page_title;
 		$this->view->report_layout = "report_layout.php";
@@ -117,7 +111,7 @@ class UsersController extends SecureController{
 				$this->set_page_error("No record found");
 			}
 		}
-		return $this->render_view("users/view.php", $record);
+		return $this->render_view("role_permissions/view.php", $record);
 	}
 	/**
      * Insert new record to the database table
@@ -130,56 +124,33 @@ class UsersController extends SecureController{
 			$tablename = $this->tablename;
 			$request = $this->request;
 			//fillable fields
-			$fields = $this->fields = array("full_names","mobile_number","email","password","photo","role");
+			$fields = $this->fields = array("role_id","page_name","action_name");
 			$postdata = $this->format_request_data($formdata);
-			$cpassword = $postdata['confirm_password'];
-			$password = $postdata['password'];
-			if($cpassword != $password){
-				$this->view->page_error[] = "Your password confirmation is not consistent";
-			}
 			$this->rules_array = array(
-				'full_names' => 'required',
-				'mobile_number' => 'required',
-				'email' => 'required|valid_email',
-				'password' => 'required',
-				'photo' => 'required',
-				'role' => 'required',
+				'role_id' => 'required|numeric',
+				'page_name' => 'required',
+				'action_name' => 'required',
 			);
 			$this->sanitize_array = array(
-				'full_names' => 'sanitize_string',
-				'mobile_number' => 'sanitize_string',
-				'email' => 'sanitize_string',
-				'photo' => 'sanitize_string',
-				'role' => 'sanitize_string',
+				'role_id' => 'sanitize_string',
+				'page_name' => 'sanitize_string',
+				'action_name' => 'sanitize_string',
 			);
 			$this->filter_vals = true; //set whether to remove empty fields
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
-			$password_text = $modeldata['password'];
-			//update modeldata with the password hash
-			$modeldata['password'] = $this->modeldata['password'] = password_hash($password_text , PASSWORD_DEFAULT);
-			//Check if Duplicate Record Already Exit In The Database
-			$db->where("full_names", $modeldata['full_names']);
-			if($db->has($tablename)){
-				$this->view->page_error[] = $modeldata['full_names']." Already exist!";
-			}
-			//Check if Duplicate Record Already Exit In The Database
-			$db->where("email", $modeldata['email']);
-			if($db->has($tablename)){
-				$this->view->page_error[] = $modeldata['email']." Already exist!";
-			} 
 			if($this->validated()){
 				$rec_id = $this->rec_id = $db->insert($tablename, $modeldata);
 				if($rec_id){
 					$this->set_flash_msg("Record added successfully", "success");
-					return	$this->redirect("users");
+					return	$this->redirect("role_permissions");
 				}
 				else{
 					$this->set_page_error();
 				}
 			}
 		}
-		$page_title = $this->view->page_title = "Add New Users";
-		$this->render_view("users/add.php");
+		$page_title = $this->view->page_title = "Add New Role Permissions";
+		$this->render_view("role_permissions/add.php");
 	}
 	/**
      * Update table record with formdata
@@ -193,36 +164,27 @@ class UsersController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","photo","role");
+		$fields = $this->fields = array("permission_id","role_id","page_name","action_name");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
-				'full_names' => 'required',
-				'mobile_number' => 'required',
-				'photo' => 'required',
-				'role' => 'required',
+				'role_id' => 'required|numeric',
+				'page_name' => 'required',
+				'action_name' => 'required',
 			);
 			$this->sanitize_array = array(
-				'full_names' => 'sanitize_string',
-				'mobile_number' => 'sanitize_string',
-				'photo' => 'sanitize_string',
-				'role' => 'sanitize_string',
+				'role_id' => 'sanitize_string',
+				'page_name' => 'sanitize_string',
+				'action_name' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
-			//Check if Duplicate Record Already Exit In The Database
-			if(isset($modeldata['full_names'])){
-				$db->where("full_names", $modeldata['full_names'])->where("id", $rec_id, "!=");
-				if($db->has($tablename)){
-					$this->view->page_error[] = $modeldata['full_names']." Already exist!";
-				}
-			} 
 			if($this->validated()){
-				$db->where("users.id", $rec_id);;
+				$db->where("role_permissions.permission_id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
 				$numRows = $db->getRowCount(); //number of affected rows. 0 = no record field updated
 				if($bool && $numRows){
 					$this->set_flash_msg("Record updated successfully", "success");
-					return $this->redirect("users");
+					return $this->redirect("role_permissions");
 				}
 				else{
 					if($db->getLastError()){
@@ -233,18 +195,18 @@ class UsersController extends SecureController{
 						$page_error = "No record updated";
 						$this->set_page_error($page_error);
 						$this->set_flash_msg($page_error, "warning");
-						return	$this->redirect("users");
+						return	$this->redirect("role_permissions");
 					}
 				}
 			}
 		}
-		$db->where("users.id", $rec_id);;
+		$db->where("role_permissions.permission_id", $rec_id);;
 		$data = $db->getOne($tablename, $fields);
-		$page_title = $this->view->page_title = "Edit  Users";
+		$page_title = $this->view->page_title = "Edit  Role Permissions";
 		if(!$data){
 			$this->set_page_error();
 		}
-		return $this->render_view("users/edit.php", $data);
+		return $this->render_view("role_permissions/edit.php", $data);
 	}
 	/**
      * Update single field
@@ -257,7 +219,7 @@ class UsersController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","photo","role");
+		$fields = $this->fields = array("permission_id","role_id","page_name","action_name");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -266,28 +228,19 @@ class UsersController extends SecureController{
 			$postdata[$fieldname] = $fieldvalue;
 			$postdata = $this->format_request_data($postdata);
 			$this->rules_array = array(
-				'full_names' => 'required',
-				'mobile_number' => 'required',
-				'photo' => 'required',
-				'role' => 'required',
+				'role_id' => 'required|numeric',
+				'page_name' => 'required',
+				'action_name' => 'required',
 			);
 			$this->sanitize_array = array(
-				'full_names' => 'sanitize_string',
-				'mobile_number' => 'sanitize_string',
-				'photo' => 'sanitize_string',
-				'role' => 'sanitize_string',
+				'role_id' => 'sanitize_string',
+				'page_name' => 'sanitize_string',
+				'action_name' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
-			//Check if Duplicate Record Already Exit In The Database
-			if(isset($modeldata['full_names'])){
-				$db->where("full_names", $modeldata['full_names'])->where("id", $rec_id, "!=");
-				if($db->has($tablename)){
-					$this->view->page_error[] = $modeldata['full_names']." Already exist!";
-				}
-			} 
 			if($this->validated()){
-				$db->where("users.id", $rec_id);;
+				$db->where("role_permissions.permission_id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
 				$numRows = $db->getRowCount();
 				if($bool && $numRows){
@@ -327,7 +280,7 @@ class UsersController extends SecureController{
 		$this->rec_id = $rec_id;
 		//form multiple delete, split record id separated by comma into array
 		$arr_rec_id = array_map('trim', explode(",", $rec_id));
-		$db->where("users.id", $arr_rec_id, "in");
+		$db->where("role_permissions.permission_id", $arr_rec_id, "in");
 		$bool = $db->delete($tablename);
 		if($bool){
 			$this->set_flash_msg("Record deleted successfully", "success");
@@ -336,6 +289,6 @@ class UsersController extends SecureController{
 			$page_error = $db->getLastError();
 			$this->set_flash_msg($page_error, "danger");
 		}
-		return	$this->redirect("users");
+		return	$this->redirect("role_permissions");
 	}
 }

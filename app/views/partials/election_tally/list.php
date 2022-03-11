@@ -109,18 +109,17 @@ $show_pagination = $this->show_pagination;
                                             <tr>
                                                 <th class="td-sno">#</th>
                                                 <th  class="td-date"> Date</th>
+                                                <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-elective_position"> Elective Position</th>
                                                 <th  class="td-county"> County</th>
                                                 <th  class="td-constituency"> Constituency</th>
                                                 <th  class="td-polling_center"> Polling Center</th>
                                                 <th  class="td-polling_station"> Polling Station</th>
                                                 <th  class="td-votes"> Garnered Votes</th>
-                                                <th  class="td-rejected_votes"> Rejected Votes</th>
-                                                <th  class="td-spoilt_votes"> Spoilt Votes</th>
                                                 <th  class="td-total_votes"> Total Votes</th>
                                                 <th  class="td-results_form"> Results Form</th>
-                                                <th  class="td-tally_code"> Tally Code</th>
-                                                <th  class="td-user"> User</th>
+                                                <th  class="td-tally_code"> Status</th>
+                                                <th  class="td-user"> Added By</th>
                                                 <th class="td-btn"></th>
                                             </tr>
                                         </thead>
@@ -132,15 +131,11 @@ $show_pagination = $this->show_pagination;
                                             <?php
                                             $counter = 0;
                                             $sum_of_votes = 0;
-                                            $sum_of_rejected_votes = 0;
-                                            $sum_of_spoilt_votes = 0;
                                             $sum_of_total_votes = 0;
                                             foreach($records as $data){
                                             $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
                                             $counter++;
                                             $sum_of_votes = $sum_of_votes + $data['votes'];
-                                            $sum_of_rejected_votes = $sum_of_rejected_votes + $data['rejected_votes'];
-                                            $sum_of_spoilt_votes = $sum_of_spoilt_votes + $data['spoilt_votes'];
                                             $sum_of_total_votes = $sum_of_total_votes + $data['total_votes'];
                                             ?>
                                             <tr>
@@ -158,6 +153,21 @@ $show_pagination = $this->show_pagination;
                                                         data-showbuttons="left" 
                                                         class="is-editable" >
                                                         <?php echo $data['date']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-tally_code">
+                                                    <span  data-value="<?php echo $data['tally_code']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="tally_code" 
+                                                        data-title="Enter Tally Code" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="text" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['tally_code']; ?> 
                                                     </span>
                                                 </td>
                                                 <td class="td-elective_position">
@@ -265,36 +275,6 @@ $show_pagination = $this->show_pagination;
                                                         <?php echo $data['votes']; ?> 
                                                     </span>
                                                 </td>
-                                                <td class="td-rejected_votes">
-                                                    <span  data-value="<?php echo $data['rejected_votes']; ?>" 
-                                                        data-pk="<?php echo $data['id'] ?>" 
-                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                        data-name="rejected_votes" 
-                                                        data-title="Enter Rejected Votes" 
-                                                        data-placement="left" 
-                                                        data-toggle="click" 
-                                                        data-type="number" 
-                                                        data-mode="popover" 
-                                                        data-showbuttons="left" 
-                                                        class="is-editable" >
-                                                        <?php echo $data['rejected_votes']; ?> 
-                                                    </span>
-                                                </td>
-                                                <td class="td-spoilt_votes">
-                                                    <span  data-value="<?php echo $data['spoilt_votes']; ?>" 
-                                                        data-pk="<?php echo $data['id'] ?>" 
-                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                        data-name="spoilt_votes" 
-                                                        data-title="Enter Spoilt Votes" 
-                                                        data-placement="left" 
-                                                        data-toggle="click" 
-                                                        data-type="number" 
-                                                        data-mode="popover" 
-                                                        data-showbuttons="left" 
-                                                        class="is-editable" >
-                                                        <?php echo $data['spoilt_votes']; ?> 
-                                                    </span>
-                                                </td>
                                                 <td class="td-total_votes">
                                                     <span  data-value="<?php echo $data['total_votes']; ?>" 
                                                         data-pk="<?php echo $data['id'] ?>" 
@@ -311,19 +291,19 @@ $show_pagination = $this->show_pagination;
                                                     </span>
                                                 </td>
                                                 <td class="td-results_form"><?php Html :: page_link_file($data['results_form']); ?></td>
-                                                <td class="td-tally_code">
-                                                    <span  data-value="<?php echo $data['tally_code']; ?>" 
+                                                <td class="td-status">
+                                                    <span  data-value="<?php echo $data['status']; ?>" 
                                                         data-pk="<?php echo $data['id'] ?>" 
                                                         data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                        data-name="tally_code" 
-                                                        data-title="Enter Tally Code" 
+                                                        data-name="status" 
+                                                        data-title="Enter Status" 
                                                         data-placement="left" 
                                                         data-toggle="click" 
                                                         data-type="text" 
                                                         data-mode="popover" 
                                                         data-showbuttons="left" 
                                                         class="is-editable" >
-                                                        <?php echo $data['tally_code']; ?> 
+                                                        <?php echo $data['status']; ?> 
                                                     </span>
                                                 </td>
                                                 <td class="td-user">
@@ -345,9 +325,11 @@ $show_pagination = $this->show_pagination;
                                                     <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("election_tally/view/$rec_id"); ?>">
                                                         <i class="fa fa-eye"></i> View
                                                     </a>
-                                                    <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("election_tally/edit/$rec_id"); ?>">
-                                                        <i class="fa fa-edit"></i> Edit
+                                                    <?php if($data['status'] !== "Verified") {?> 
+                                                    <a class="btn btn-sm btn-warning has-tooltip" title="Edit This Record" href="<?php print_link("election_tally/pollverification/$rec_id"); ?>">
+                                                        <i class="fa fa-edit"></i> Verify Tally
                                                     </a>
+                                                    <?php }?>
                                                 </th>
                                             </tr>
                                             <?php 
@@ -356,7 +338,7 @@ $show_pagination = $this->show_pagination;
                                             <!--endrecord-->
                                         </tbody>
                                         <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
-                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Rejected Votes = <?php echo $sum_of_rejected_votes;  ?></th><th>Total Spoilt Votes = <?php echo $sum_of_spoilt_votes;  ?></th><th>Total Total Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th><th></th></tr></tfoot>
+                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Total Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th><th></th></tr></tfoot>
                                         <?php
                                         }
                                         ?>
