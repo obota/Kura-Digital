@@ -241,12 +241,12 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_pollverification Model Action
+     * getcount_verifiedelectiontally Model Action
      * @return Value
      */
-	function getcount_pollverification(){
+	function getcount_verifiedelectiontally(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification";
+		$sqltext = "SELECT COUNT(*) AS num FROM election_tally WHERE status='Verified'";
 		$queryparams = null;
 		$val = $db->rawQueryValue($sqltext, $queryparams);
 		
@@ -257,10 +257,10 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_electiontally Model Action
+     * getcount_unverifiedelectiontally Model Action
      * @return Value
      */
-	function getcount_electiontally(){
+	function getcount_unverifiedelectiontally(){
 		$db = $this->GetModel();
 		$sqltext = "SELECT COUNT(*) AS num FROM election_tally WHERE status ='Pending Verification'";
 		$queryparams = null;

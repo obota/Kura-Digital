@@ -100,7 +100,55 @@ $show_pagination = $this->show_pagination;
             <div class="container-fluid">
                 <div class="row ">
                     <div class="col-md-12 comp-grid">
+                    <form method="get" action="<?php print_link($current_page) ?>" class="form filter-form">
+                        <div class="card mb-3">
+                            <div class="card-header h4 h4">Filter by Election Tally Status</div>
+                            <div class="p-2">
+                                <?php
+                                $election_tally_status_options = $comp_model->election_tally_election_tallystatus_option_list();
+                                if (!empty($election_tally_status_options)) {
+                                    foreach ($election_tally_status_options as $option) {
+                                        $value = (!empty($option['value']) ? $option['value'] : null);
+                                        $label = (!empty($option['label']) ? $option['label'] : $value);
+                                        $checked = $this->set_field_checked('election_tally_status', $value);
+                                ?>
+                                        <label class="custom-control custom-radio custom-control-inline">
+                                            <input id="" class="custom-control-input" <?php echo $checked; ?> value="<?php echo $value; ?>" type="radio" name="election_tally_status" />
+                                            <span class="custom-control-label"><?php echo $label; ?></span>
+                                        </label>
+                                <?php
+                                    }
+                                }
+                                ?>
+
+                                <div class="form-group text-center">
+                                    <button class="btn btn-primary">Filter</button>
+                                </div>
+                            </div>
+                        </div>
                         <?php $this :: display_page_errors(); ?>
+                        <div class="filter-tags mb-2">
+                            <?php
+                            if (!empty(get_value('election_tally_status'))) {
+                            ?>
+                                <div class="filter-chip card bg-light">
+                                    <b>Election Tally Status :</b>
+                                    <?php
+                                    if (get_value('election_tally_statuslabel')) {
+                                        echo get_value('election_tally_statuslabel');
+                                    } else {
+                                        echo get_value('election_tally_status');
+                                    }
+                                    $remove_link = unset_get_value('election_tally_status', $this->route->page_url);
+                                    ?>
+                                    <a href="<?php print_link($remove_link); ?>" class="close-btn">
+                                        &times;
+                                    </a>
+                                </div>
+                            <?php
+                            }
+                            ?>
+                        </div>
                         <div  class=" animated fadeIn page-content">
                             <div id="election_tally-list-records">
                                 <div id="page-report-body" class="table-responsive">
@@ -108,9 +156,7 @@ $show_pagination = $this->show_pagination;
                                         <thead class="table-header bg-light">
                                             <tr>
                                                 <th class="td-sno">#</th>
-                                                <th  <?php echo (get_value('orderby')=='date' ? 'class="sortedby td-date"' : null); ?>>
-                                                    <?php Html :: get_field_order_link('date', "Date"); ?>
-                                                </th>
+                                                <th  class="td-date"> Date</th>
                                                 <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-elective_position"> Elective Position</th>
                                                 <th  class="td-county"> County</th>
@@ -327,7 +373,7 @@ $show_pagination = $this->show_pagination;
                                                     <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("election_tally/view/$rec_id"); ?>">
                                                         <i class="fa fa-eye"></i> View
                                                     </a>
-                                                    <?php if($data['status'] !== "Verified" || USER_ROLE == "Agent") {?> 
+                                                    <?php if($data['status'] !== "Verified") {?> 
                                                     <a class="btn btn-sm btn-warning has-tooltip" title="Edit This Record" href="<?php print_link("election_tally/pollverification/$rec_id"); ?>">
                                                         <i class="fa fa-edit"></i> Verify Tally
                                                     </a>

@@ -34,15 +34,15 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-3 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_pollverification();  ?>
-                    <a class="animated zoomIn record-count card bg-success text-white"  href="<?php print_link("poll_verification/") ?>">
+                    <?php $rec_count = $comp_model->getcount_verifiedelectiontally();  ?>
+                    <a class="animated zoomIn record-count card bg-success text-white"  href="<?php print_link("election_tally/") ?>">
                         <div class="row">
                             <div class="col-2">
                                 <i class="fa fa-check-square-o fa-2x"></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Poll Verification</div>
+                                    <div class="title">Verified Election Tally</div>
                                     <small class="">Total Verified Polling Station Tally</small>
                                 </div>
                             </div>
@@ -51,7 +51,7 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-3 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_electiontally();  ?>
+                    <?php $rec_count = $comp_model->getcount_unverifiedelectiontally();  ?>
                     <a class="animated zoomIn record-count card bg-danger text-white"  href="<?php print_link("election_tally/") ?>">
                         <div class="row">
                             <div class="col-2">
@@ -59,7 +59,7 @@ $current_page = $this->set_current_page_link();
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Election Tally</div>
+                                    <div class="title">Unverified Election Tally</div>
                                     <small class="">Total Unverified Polling Station Tally</small>
                                 </div>
                             </div>

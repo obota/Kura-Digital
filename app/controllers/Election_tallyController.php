@@ -206,21 +206,6 @@ $modeldata['user'] = USER_NAME;
 			if($this->validated()){
 				$rec_id = $this->rec_id = $db->insert($tablename, $modeldata);
 				if($rec_id){
-		# Statement to execute after adding record
-		//variabl;e declaration
-$tallyCode  = $modeldata['tally_code'];
-$votes      = $modeldata['votes'];
-$totalVotes = $modeldata['total_votes'];
-$status     = "Pending Verification";
-//insert into poll verification
-$table_data = array(
-    "tally_code" => $tallyCode,
-    "votes" => $votes,
-    "total_votes" => $totalVotes,
-    "status" => $status,
-);
-$db->insert("poll_verification", $table_data);
-		# End of after add statement
 					$this->set_flash_msg("Record added successfully", "success");
 					return	$this->redirect("election_tally");
 				}
