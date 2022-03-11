@@ -19,6 +19,7 @@ class Poll_verificationController extends SecureController{
 		$db = $this->GetModel();
 		$tablename = $this->tablename;
 		$fields = array("poll_verification.id", 
+			"poll_verification.tally_code", 
 			"poll_verification.date", 
 			"election_tally.elective_position AS election_tally_elective_position", 
 			"election_tally.county AS election_tally_county", 
@@ -28,7 +29,6 @@ class Poll_verificationController extends SecureController{
 			"poll_verification.votes", 
 			"poll_verification.total_votes", 
 			"poll_verification.results_form", 
-			"poll_verification.tally_code", 
 			"poll_verification.status", 
 			"poll_verification.user");
 		$pagination = $this->get_pagination(MAX_RECORD_COUNT); // get current pagination e.g array(page_number, page_limit)
@@ -37,6 +37,7 @@ class Poll_verificationController extends SecureController{
 			$text = trim($request->search); 
 			$search_condition = "(
 				poll_verification.id LIKE ? OR 
+				poll_verification.tally_code LIKE ? OR 
 				poll_verification.date LIKE ? OR 
 				election_tally.elective_position LIKE ? OR 
 				election_tally.county LIKE ? OR 
@@ -46,7 +47,6 @@ class Poll_verificationController extends SecureController{
 				poll_verification.votes LIKE ? OR 
 				poll_verification.total_votes LIKE ? OR 
 				poll_verification.results_form LIKE ? OR 
-				poll_verification.tally_code LIKE ? OR 
 				poll_verification.status LIKE ? OR 
 				poll_verification.user LIKE ? OR 
 				election_tally.results_form LIKE ? OR 
@@ -116,6 +116,7 @@ class Poll_verificationController extends SecureController{
 		$rec_id = $this->rec_id = urldecode($rec_id);
 		$tablename = $this->tablename;
 		$fields = array("poll_verification.id", 
+			"poll_verification.tally_code", 
 			"poll_verification.date", 
 			"election_tally.elective_position AS election_tally_elective_position", 
 			"election_tally.county AS election_tally_county", 
@@ -125,7 +126,6 @@ class Poll_verificationController extends SecureController{
 			"poll_verification.votes", 
 			"poll_verification.total_votes", 
 			"poll_verification.results_form", 
-			"poll_verification.tally_code", 
 			"poll_verification.status", 
 			"poll_verification.user");
 		if($value){

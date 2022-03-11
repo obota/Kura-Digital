@@ -338,7 +338,7 @@ $show_pagination = $this->show_pagination;
                                             <!--endrecord-->
                                         </tbody>
                                         <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
-                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Total Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th><th></th></tr></tfoot>
+                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Cumulative Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th></tr></tfoot>
                                         <?php
                                         }
                                         ?>

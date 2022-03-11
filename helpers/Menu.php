@@ -34,15 +34,15 @@ class Menu{
 		),
 		
 		array(
-			'path' => 'users', 
-			'label' => 'Users', 
-			'icon' => '<i class="fa fa-users fa-2x"></i>'
+			'path' => 'agents', 
+			'label' => 'Agents', 
+			'icon' => '<i class="fa fa-suitcase fa-2x"></i>'
 		),
 		
 		array(
-			'path' => 'agents', 
-			'label' => 'Agents', 
-			'icon' => ''
+			'path' => 'users', 
+			'label' => 'Users', 
+			'icon' => '<i class="fa fa-users fa-2x"></i>'
 		)
 	);
 		

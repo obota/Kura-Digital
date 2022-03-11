@@ -56,6 +56,24 @@ $show_export_btn = $this->show_export_btn;
                             <table class="table table-hover table-borderless table-striped">
                                 <!-- Table Body Start -->
                                 <tbody class="page-data" id="page-data-<?php echo $page_element_id; ?>">
+                                    <tr  class="td-tally_code">
+                                        <th class="title"> Tally Code: </th>
+                                        <td class="value">
+                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="tally_code" 
+                                                data-title="Enter Tally Code" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="text" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" <?php } ?>>
+                                                <?php echo $data['tally_code']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
                                     <tr  class="td-date">
                                         <th class="title"> Date: </th>
                                         <td class="value">
@@ -134,24 +152,6 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-results_form">
                                         <th class="title"> Results Form: </th>
                                         <td class="value"><?php Html :: page_link_file($data['results_form']); ?></td>
-                                    </tr>
-                                    <tr  class="td-tally_code">
-                                        <th class="title"> Tally Code: </th>
-                                        <td class="value">
-                                            <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="tally_code" 
-                                                data-title="Enter Tally Code" 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="text" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" <?php } ?>>
-                                                <?php echo $data['tally_code']; ?> 
-                                            </span>
-                                        </td>
                                     </tr>
                                     <tr  class="td-status">
                                         <th class="title"> Status: </th>

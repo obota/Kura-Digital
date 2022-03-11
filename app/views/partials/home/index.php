@@ -204,4 +204,17 @@ $current_page = $this->set_current_page_link();
             </div>
         </div>
     </div>
+    <div  class="">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col-md-12 comp-grid">
+                    <div class=" ">
+                        <?php  
+                        $this->render_page("poll_verification/list?limit_count=5"); 
+                        ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

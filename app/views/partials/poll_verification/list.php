@@ -111,6 +111,7 @@ $show_pagination = $this->show_pagination;
                                         <thead class="table-header bg-light">
                                             <tr>
                                                 <th class="td-sno">#</th>
+                                                <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-date"> Date</th>
                                                 <th  class="td-election_tally_elective_position"> Elective Position</th>
                                                 <th  class="td-election_tally_county"> County</th>
@@ -120,7 +121,6 @@ $show_pagination = $this->show_pagination;
                                                 <th  class="td-votes"> Garnered Votes</th>
                                                 <th  class="td-total_votes"> Total Votes</th>
                                                 <th  class="td-results_form"> Results Form</th>
-                                                <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-status"> Status</th>
                                                 <th  class="td-user"> Verified By</th>
                                                 <th class="td-btn"></th>
@@ -143,6 +143,21 @@ $show_pagination = $this->show_pagination;
                                             ?>
                                             <tr>
                                                 <th class="td-sno"><?php echo $counter; ?></th>
+                                                <td class="td-tally_code">
+                                                    <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="tally_code" 
+                                                        data-title="Enter Tally Code" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="text" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" <?php } ?>>
+                                                        <?php echo $data['tally_code']; ?> 
+                                                    </span>
+                                                </td>
                                                 <td class="td-date">
                                                     <span <?php if($can_edit){ ?> data-flatpickr="{ minDate: '', maxDate: ''}" 
                                                         data-value="<?php echo $data['date']; ?>" 
@@ -280,21 +295,6 @@ $show_pagination = $this->show_pagination;
                                                     </span>
                                                 </td>
                                                 <td class="td-results_form"><?php Html :: page_link_file($data['results_form']); ?></td>
-                                                <td class="td-tally_code">
-                                                    <span <?php if($can_edit){ ?> data-value="<?php echo $data['tally_code']; ?>" 
-                                                        data-pk="<?php echo $data['id'] ?>" 
-                                                        data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                        data-name="tally_code" 
-                                                        data-title="Enter Tally Code" 
-                                                        data-placement="left" 
-                                                        data-toggle="click" 
-                                                        data-type="text" 
-                                                        data-mode="popover" 
-                                                        data-showbuttons="left" 
-                                                        class="is-editable" <?php } ?>>
-                                                        <?php echo $data['tally_code']; ?> 
-                                                    </span>
-                                                </td>
                                                 <td class="td-status">
                                                     <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $status); ?>' 
                                                         data-value="<?php echo $data['status']; ?>" 
@@ -345,7 +345,7 @@ $show_pagination = $this->show_pagination;
                                             <!--endrecord-->
                                         </tbody>
                                         <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
-                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Cumulative Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th><th></th><th></th></tr></tfoot>
+                                        <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Garnered Votes = <?php echo $sum_of_votes;  ?></th><th>Total Cumulative Votes = <?php echo $sum_of_total_votes;  ?></th><th></th><th></th><th></th><th></th></tr></tfoot>
                                         <?php
                                         }
                                         ?>
