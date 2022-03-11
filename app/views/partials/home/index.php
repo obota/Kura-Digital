@@ -8,7 +8,7 @@ $current_page = $this->set_current_page_link();
         <div class="container">
             <div class="row ">
                 <div class="col-md-12 comp-grid">
-                    <h4 >The Dashboard</h4>
+                    <h4 >Administrator Dashboard</h4>
                 </div>
             </div>
         </div>
@@ -16,7 +16,7 @@ $current_page = $this->set_current_page_link();
     <div  class="">
         <div class="container-fluid">
             <div class="row justify-content-around">
-                <div class="col-md-4 comp-grid">
+                <div class="col-md-3 comp-grid">
                     <?php $rec_count = $comp_model->getcount_totalpollingstations();  ?>
                     <a class="animated zoomIn record-count alert alert-info"  href="<?php print_link("polling_centers/") ?>">
                         <div class="row">
@@ -33,7 +33,7 @@ $current_page = $this->set_current_page_link();
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 comp-grid">
+                <div class="col-md-3 comp-grid">
                     <?php $rec_count = $comp_model->getcount_pollverification();  ?>
                     <a class="animated zoomIn record-count card bg-success text-white"  href="<?php print_link("poll_verification/") ?>">
                         <div class="row">
@@ -50,7 +50,7 @@ $current_page = $this->set_current_page_link();
                         </div>
                     </a>
                 </div>
-                <div class="col-md-4 comp-grid">
+                <div class="col-md-3 comp-grid">
                     <?php $rec_count = $comp_model->getcount_electiontally();  ?>
                     <a class="animated zoomIn record-count card bg-danger text-white"  href="<?php print_link("election_tally/") ?>">
                         <div class="row">
@@ -61,6 +61,23 @@ $current_page = $this->set_current_page_link();
                                 <div class="flex-column justify-content align-center">
                                     <div class="title">Election Tally</div>
                                     <small class="">Total Unverified Polling Station Tally</small>
+                                </div>
+                            </div>
+                            <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 comp-grid">
+                    <?php $rec_count = $comp_model->getcount_agents();  ?>
+                    <a class="animated zoomIn record-count alert alert-info"  href="<?php print_link("agents/") ?>">
+                        <div class="row">
+                            <div class="col-2">
+                                <i class="fa fa-briefcase fa-2x"></i>
+                            </div>
+                            <div class="col-10">
+                                <div class="flex-column justify-content align-center">
+                                    <div class="title">Agents</div>
+                                    <small class="">Total Agents</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>

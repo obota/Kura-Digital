@@ -249,6 +249,22 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * getcount_agents Model Action
+     * @return Value
+     */
+	function getcount_agents(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT COUNT(*) AS num FROM agents";
+		$queryparams = null;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
+	}
+
+	/**
 	* barchart_datasetfromconstituencytally Model Action
 	* @return array
 	*/

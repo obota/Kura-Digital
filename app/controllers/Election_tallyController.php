@@ -66,6 +66,10 @@ class Election_tallyController extends SecureController{
 		else{
 			$db->orderBy("election_tally.id", ORDER_TYPE);
 		}
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
+		}
 		if($fieldname){
 			$db->where($fieldname , $fieldvalue); //filter by a single field name
 		}
@@ -120,6 +124,10 @@ class Election_tallyController extends SecureController{
 			"tally_code", 
 			"user", 
 			"status");
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
+		}
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}
@@ -269,6 +277,10 @@ $modeldata['user'] = USER_NAME;
 				}
 			} 
 			if($this->validated()){
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
+		}
 				$db->where("election_tally.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
 				$numRows = $db->getRowCount(); //number of affected rows. 0 = no record field updated
@@ -289,6 +301,10 @@ $modeldata['user'] = USER_NAME;
 					}
 				}
 			}
+		}
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
 		}
 		$db->where("election_tally.id", $rec_id);;
 		$data = $db->getOne($tablename, $fields);
@@ -350,6 +366,10 @@ $modeldata['user'] = USER_NAME;
 				}
 			} 
 			if($this->validated()){
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
+		}
 				$db->where("election_tally.id", $rec_id);;
 				$bool = $db->update($tablename, $modeldata);
 				$numRows = $db->getRowCount();
@@ -401,6 +421,10 @@ $modeldata['user'] = USER_NAME;
 			"votes", 
 			"total_votes", 
 			"status");
+		$allowed_roles = array ('administrator', 'verification manager');
+		if(!in_array(strtolower(USER_ROLE), $allowed_roles)){
+		$db->where("election_tally.user", get_active_user('full_names') );
+		}
 		if($value){
 			$db->where($rec_id, urldecode($value)); //select record based on field name
 		}

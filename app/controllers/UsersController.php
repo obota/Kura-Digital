@@ -193,20 +193,18 @@ class UsersController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		 //editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","photo","role");
+		$fields = $this->fields = array("id","full_names","mobile_number","photo");
 		if($formdata){
 			$postdata = $this->format_request_data($formdata);
 			$this->rules_array = array(
 				'full_names' => 'required',
 				'mobile_number' => 'required',
 				'photo' => 'required',
-				'role' => 'required',
 			);
 			$this->sanitize_array = array(
 				'full_names' => 'sanitize_string',
 				'mobile_number' => 'sanitize_string',
 				'photo' => 'sanitize_string',
-				'role' => 'sanitize_string',
 			);
 			$modeldata = $this->modeldata = $this->validate_form($postdata);
 			//Check if Duplicate Record Already Exit In The Database
@@ -257,7 +255,7 @@ class UsersController extends SecureController{
 		$this->rec_id = $rec_id;
 		$tablename = $this->tablename;
 		//editable fields
-		$fields = $this->fields = array("id","full_names","mobile_number","photo","role");
+		$fields = $this->fields = array("id","full_names","mobile_number","photo");
 		$page_error = null;
 		if($formdata){
 			$postdata = array();
@@ -269,13 +267,11 @@ class UsersController extends SecureController{
 				'full_names' => 'required',
 				'mobile_number' => 'required',
 				'photo' => 'required',
-				'role' => 'required',
 			);
 			$this->sanitize_array = array(
 				'full_names' => 'sanitize_string',
 				'mobile_number' => 'sanitize_string',
 				'photo' => 'sanitize_string',
-				'role' => 'sanitize_string',
 			);
 			$this->filter_rules = true; //filter validation rules by excluding fields not in the formdata
 			$modeldata = $this->modeldata = $this->validate_form($postdata);

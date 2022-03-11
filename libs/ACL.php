@@ -16,7 +16,7 @@ class ACL
 	public static $role_pages = array(
 			'administrator' =>
 						array(
-							'users' => array('list','view','add','edit', 'editfield','delete','import_data','userregister','accountedit','accountview'),
+							'users' => array('list','view','add','edit', 'editfield','delete','import_data','accountedit','accountview'),
 							'election_tally' => array('list','view','add','edit', 'editfield','delete','pollverification'),
 							'polling_centers' => array('list','view','add','edit', 'editfield','delete'),
 							'poll_verification' => array('list','view','add','edit', 'editfield','delete'),
@@ -34,8 +34,7 @@ class ACL
 		
 			'agent' =>
 						array(
-							'election_tally' => array('list','view','add','edit', 'editfield'),
-							'poll_verification' => array('list','view')
+							'election_tally' => array('list','view','add','edit', 'editfield')
 						)
 		);
 

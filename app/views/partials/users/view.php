@@ -94,22 +94,7 @@ $show_export_btn = $this->show_export_btn;
                                     </tr>
                                     <tr  class="td-role">
                                         <th class="title"> Role: </th>
-                                        <td class="value">
-                                            <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $role); ?>' 
-                                                data-value="<?php echo $data['role']; ?>" 
-                                                data-pk="<?php echo $data['id'] ?>" 
-                                                data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                data-name="role" 
-                                                data-title="Select a value ..." 
-                                                data-placement="left" 
-                                                data-toggle="click" 
-                                                data-type="select" 
-                                                data-mode="popover" 
-                                                data-showbuttons="left" 
-                                                class="is-editable" <?php } ?>>
-                                                <?php echo $data['role']; ?> 
-                                            </span>
-                                        </td>
+                                        <td class="value"> <?php echo $data['role']; ?></td>
                                     </tr>
                                 </tbody>
                                 <!-- Table Body End -->

@@ -10,8 +10,14 @@ class HomeController extends SecureController{
      * @return View
      */
 	function index(){
-		
-		$this->render_view("home/index.php" , null , "main_layout.php");
-
+		if(strtolower(USER_ROLE) == 'agent'){
+			$this->render_view("home/agent.php" , null , "main_layout.php");
+		}
+		elseif(strtolower(USER_ROLE) == 'verification manager'){
+			$this->render_view("home/verification manager.php" , null , "main_layout.php");
+		}
+		else{
+			$this->render_view("home/index.php" , null , "main_layout.php");
+		}
 	}
 }

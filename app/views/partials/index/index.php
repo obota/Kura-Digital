@@ -9,7 +9,7 @@
                         <div class=""><div class="fadeIn animated mb-4">
                             <style>
                                 body{
-                                background:url(assets/images/bg1.jpg) ;
+                                background:url(assets/images/bg3.webp) ;
                                 }
                             </style>
                         </div></div>

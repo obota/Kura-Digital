@@ -186,22 +186,7 @@ $show_pagination = $this->show_pagination;
                                                     </td>
                                                     <td class="td-email"><a href="<?php print_link("mailto:$data[email]") ?>"><?php echo $data['email']; ?></a></td>
                                                     <td class="td-photo"><?php Html :: page_img($data['photo'],50,50,1); ?></td>
-                                                    <td class="td-role">
-                                                        <span <?php if($can_edit){ ?> data-source='<?php echo json_encode_quote(Menu :: $role); ?>' 
-                                                            data-value="<?php echo $data['role']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("users/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="role" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="select" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" <?php } ?>>
-                                                            <?php echo $data['role']; ?> 
-                                                        </span>
-                                                    </td>
+                                                    <td class="td-role"> <?php echo $data['role']; ?></td>
                                                     <th class="td-btn">
                                                         <?php if($can_view){ ?>
                                                         <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("users/view/$rec_id"); ?>">
