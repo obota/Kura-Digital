@@ -204,6 +204,42 @@ $show_export_btn = $this->show_export_btn;
                                             </span>
                                         </td>
                                     </tr>
+                                    <tr  class="td-rejected_votes">
+                                        <th class="title"> Rejected Votes: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['rejected_votes']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="rejected_votes" 
+                                                data-title="Enter Rejected Votes" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['rejected_votes']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr  class="td-spoilt_votes">
+                                        <th class="title"> Spoilt Votes: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['spoilt_votes']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="spoilt_votes" 
+                                                data-title="Enter Spoilt Votes" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['spoilt_votes']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
                                     <tr  class="td-results_form">
                                         <th class="title"> Results Form: </th>
                                         <td class="value"><?php Html :: page_link_file($data['results_form']); ?></td>

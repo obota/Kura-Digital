@@ -80,6 +80,57 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * poll_verification_election_tally_county_option_list Model Action
+     * @return array
+     */
+	function poll_verification_election_tally_county_option_list($search_text = null){
+		$arr = array();
+		if(!empty($search_text)){
+			$db = $this->GetModel();
+			$sqltext = "SELECT  DISTINCT county_name AS value,county_name AS label FROM polling_centers WHERE county_name LIKE ? ORDER BY id ASC LIMIT 0,10" ;
+			$queryparams = array("%$search_text%");
+			$arr = $db->rawQuery($sqltext, $queryparams);
+		}
+		return $arr;
+	}
+
+	/**
+     * poll_verification_election_tally_constituency_option_list Model Action
+     * @return array
+     */
+	function poll_verification_election_tally_constituency_option_list($lookup_county){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT constituency_name AS value,constituency_name AS label FROM polling_centers WHERE county_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_county);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * poll_verification_election_tally_polling_center_option_list Model Action
+     * @return array
+     */
+	function poll_verification_election_tally_polling_center_option_list($lookup_constituency){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT polling_center_name AS value,polling_center_name AS label FROM polling_centers WHERE constituency_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_constituency);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * poll_verification_election_tally_polling_station_option_list Model Action
+     * @return array
+     */
+	function poll_verification_election_tally_polling_station_option_list($lookup_polling_center){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT polling_station_name AS value,polling_station_name AS label FROM polling_centers WHERE polling_center_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_polling_center);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
      * getcount_totalpollingstations Model Action
      * @return Value
      */
@@ -96,12 +147,12 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_countedpollingstations Model Action
+     * getcount_verifiedvotingtally Model Action
      * @return Value
      */
-	function getcount_countedpollingstations(){
+	function getcount_verifiedvotingtally(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT COUNT(*) AS num FROM election_tally";
+		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification WHERE status = 'Verified'";
 		$queryparams = null;
 		$val = $db->rawQueryValue($sqltext, $queryparams);
 		
@@ -112,12 +163,12 @@ class SharedController extends BaseController{
 	}
 
 	/**
-     * getcount_totalsystemusers Model Action
+     * getcount_unverifiedvotingtally Model Action
      * @return Value
      */
-	function getcount_totalsystemusers(){
+	function getcount_unverifiedvotingtally(){
 		$db = $this->GetModel();
-		$sqltext = "SELECT COUNT(*) AS num FROM users";
+		$sqltext = "SELECT COUNT(*) AS num FROM poll_verification WHERE status ='Pending Verification'";
 		$queryparams = null;
 		$val = $db->rawQueryValue($sqltext, $queryparams);
 		

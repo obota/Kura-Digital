@@ -119,11 +119,11 @@ $redirect_to = $this->redirect_to;
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label class="control-label" for="total_votes">Total Votes <span class="text-danger">*</span></label>
+                                            <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <input id="ctrl-total_votes"  value="<?php  echo $this->set_field_value('total_votes',""); ?>" type="number" placeholder="Enter Total Votes" step="1"  required="" name="total_votes"  class="form-control " />
+                                                <input id="ctrl-votes"  value="<?php  echo $this->set_field_value('votes',""); ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
                                                 </div>
                                             </div>
                                         </div>
@@ -131,11 +131,11 @@ $redirect_to = $this->redirect_to;
                                     <div class="form-group ">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
+                                                <label class="control-label" for="rejected_votes">Rejected Votes <span class="text-danger">*</span></label>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <input id="ctrl-votes"  value="<?php  echo $this->set_field_value('votes',""); ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
+                                                    <input id="ctrl-rejected_votes"  value="<?php  echo $this->set_field_value('rejected_votes',""); ?>" type="number" placeholder="Enter Rejected Votes" step="1"  required="" name="rejected_votes"  class="form-control " />
                                                     </div>
                                                 </div>
                                             </div>
@@ -143,15 +143,11 @@ $redirect_to = $this->redirect_to;
                                         <div class="form-group ">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
+                                                    <label class="control-label" for="spoilt_votes">Spoilt Votes <span class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div class="">
-                                                        <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
-                                                            <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $this->set_field_value('results_form',""); ?>" type="text"  />
-                                                                <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
-                                                                <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
-                                                            </div>
+                                                        <input id="ctrl-spoilt_votes"  value="<?php  echo $this->set_field_value('spoilt_votes',""); ?>" type="number" placeholder="Enter Spoilt Votes" step="1"  required="" name="spoilt_votes"  class="form-control " />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -159,27 +155,55 @@ $redirect_to = $this->redirect_to;
                                             <div class="form-group ">
                                                 <div class="row">
                                                     <div class="col-sm-4">
-                                                        <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                        <label class="control-label" for="total_votes">Total Votes <span class="text-danger">*</span></label>
                                                     </div>
                                                     <div class="col-sm-8">
                                                         <div class="">
-                                                            <input id="ctrl-tally_code"  value="<?php  echo $this->set_field_value('tally_code',random_num(5)); ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                            <input id="ctrl-total_votes"  value="<?php  echo $this->set_field_value('total_votes',""); ?>" type="number" placeholder="Enter Total Votes" step="1"  required="" name="total_votes"  class="form-control " />
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="form-group ">
+                                                    <div class="row">
+                                                        <div class="col-sm-4">
+                                                            <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
+                                                        </div>
+                                                        <div class="col-sm-8">
+                                                            <div class="">
+                                                                <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
+                                                                    <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $this->set_field_value('results_form',""); ?>" type="text"  />
+                                                                        <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
+                                                                        <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group ">
+                                                        <div class="row">
+                                                            <div class="col-sm-4">
+                                                                <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                            </div>
+                                                            <div class="col-sm-8">
+                                                                <div class="">
+                                                                    <input id="ctrl-tally_code"  value="<?php  echo $this->set_field_value('tally_code',random_num(5)); ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group form-submit-btn-holder text-center mt-3">
+                                                        <div class="form-ajax-status"></div>
+                                                        <button class="btn btn-primary" type="submit">
+                                                            Submit
+                                                            <i class="fa fa-send"></i>
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                            <div class="form-group form-submit-btn-holder text-center mt-3">
-                                                <div class="form-ajax-status"></div>
-                                                <button class="btn btn-primary" type="submit">
-                                                    Submit
-                                                    <i class="fa fa-send"></i>
-                                                </button>
-                                            </div>
-                                        </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </section>
+                        </section>

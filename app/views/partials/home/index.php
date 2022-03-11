@@ -18,15 +18,15 @@ $current_page = $this->set_current_page_link();
             <div class="row justify-content-around">
                 <div class="col-md-4 comp-grid">
                     <?php $rec_count = $comp_model->getcount_totalpollingstations();  ?>
-                    <a class="animated zoomIn record-count card bg-light text-dark"  href="<?php print_link("polling_centers/") ?>">
+                    <a class="animated zoomIn record-count alert alert-info"  href="<?php print_link("polling_centers/") ?>">
                         <div class="row">
                             <div class="col-2">
-                                <i class="fa fa-globe"></i>
+                                <i class="fa fa-institution fa-2x "></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
                                     <div class="title">Total Polling Stations</div>
-                                    <small class=""></small>
+                                    <small class="">Total Polling Stations</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
@@ -34,16 +34,16 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-4 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_countedpollingstations();  ?>
-                    <a class="animated zoomIn record-count card bg-light text-dark"  href="<?php print_link("election_tally/") ?>">
+                    <?php $rec_count = $comp_model->getcount_verifiedvotingtally();  ?>
+                    <a class="animated zoomIn record-count card bg-success text-white"  href="<?php print_link("poll_verification/") ?>">
                         <div class="row">
                             <div class="col-2">
-                                <i class="fa fa-globe"></i>
+                                <i class="fa fa-check-square-o fa-2x "></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Counted Polling Stations</div>
-                                    <small class=""></small>
+                                    <div class="title">Verified Voting Tally</div>
+                                    <small class="">Total Verified Polling Station Votes</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
@@ -51,16 +51,16 @@ $current_page = $this->set_current_page_link();
                     </a>
                 </div>
                 <div class="col-md-4 comp-grid">
-                    <?php $rec_count = $comp_model->getcount_totalsystemusers();  ?>
-                    <a class="animated zoomIn record-count card bg-light text-dark"  href="<?php print_link("users/") ?>">
+                    <?php $rec_count = $comp_model->getcount_unverifiedvotingtally();  ?>
+                    <a class="animated zoomIn record-count card bg-danger text-white"  href="<?php print_link("poll_verification/") ?>">
                         <div class="row">
                             <div class="col-2">
-                                <i class="fa fa-globe"></i>
+                                <i class="fa fa-close fa-2x"></i>
                             </div>
                             <div class="col-10">
                                 <div class="flex-column justify-content align-center">
-                                    <div class="title">Total System Users</div>
-                                    <small class=""></small>
+                                    <div class="title">Unverified Voting Tally</div>
+                                    <small class="">Total Unverified Polling Station Votes</small>
                                 </div>
                             </div>
                             <h4 class="value"><strong><?php echo $rec_count; ?></strong></h4>
