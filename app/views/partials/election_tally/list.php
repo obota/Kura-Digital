@@ -120,7 +120,8 @@ $show_pagination = $this->show_pagination;
                                                 <th  class="td-constituency"> Constituency</th>
                                                 <th  class="td-polling_center"> Polling Center</th>
                                                 <th  class="td-polling_station"> Polling Station</th>
-                                                <th  class="td-votes"> Votes</th>
+                                                <th  class="td-total_votes"> Total Votes</th>
+                                                <th  class="td-votes"> Garnered Votes</th>
                                                 <th  class="td-results_form"> Results Form</th>
                                                 <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-user"> User</th>
@@ -134,9 +135,11 @@ $show_pagination = $this->show_pagination;
                                             <!--record-->
                                             <?php
                                             $counter = 0;
+                                            $sum_of_votes = 0;
                                             foreach($records as $data){
                                             $rec_id = (!empty($data['id']) ? urlencode($data['id']) : null);
                                             $counter++;
+                                            $sum_of_votes = $sum_of_votes + $data['votes'];
                                             ?>
                                             <tr>
                                                 <th class=" td-checkbox">
@@ -251,6 +254,21 @@ $show_pagination = $this->show_pagination;
                                                             <?php echo $data['polling_station']; ?> 
                                                         </span>
                                                     </td>
+                                                    <td class="td-total_votes">
+                                                        <span  data-value="<?php echo $data['total_votes']; ?>" 
+                                                            data-pk="<?php echo $data['id'] ?>" 
+                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                            data-name="total_votes" 
+                                                            data-title="Enter Total Votes" 
+                                                            data-placement="left" 
+                                                            data-toggle="click" 
+                                                            data-type="number" 
+                                                            data-mode="popover" 
+                                                            data-showbuttons="left" 
+                                                            class="is-editable" >
+                                                            <?php echo $data['total_votes']; ?> 
+                                                        </span>
+                                                    </td>
                                                     <td class="td-votes">
                                                         <span  data-value="<?php echo $data['votes']; ?>" 
                                                             data-pk="<?php echo $data['id'] ?>" 
@@ -316,6 +334,7 @@ $show_pagination = $this->show_pagination;
                                                 <!--endrecord-->
                                             </tbody>
                                             <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
+                                            <tfoot><tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th></th><th>Total Votes = <?php echo $sum_of_votes;  ?></th><th></th><th></th><th></th><th></th></tr></tfoot>
                                             <?php
                                             }
                                             ?>

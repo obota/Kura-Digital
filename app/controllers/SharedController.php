@@ -79,4 +79,52 @@ class SharedController extends BaseController{
 		return $arr;
 	}
 
+	/**
+     * getcount_totalpollingstations Model Action
+     * @return Value
+     */
+	function getcount_totalpollingstations(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT COUNT(*) AS num FROM polling_centers";
+		$queryparams = null;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
+	}
+
+	/**
+     * getcount_countedpollingstations Model Action
+     * @return Value
+     */
+	function getcount_countedpollingstations(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT COUNT(*) AS num FROM election_tally";
+		$queryparams = null;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
+	}
+
+	/**
+     * getcount_totalsystemusers Model Action
+     * @return Value
+     */
+	function getcount_totalsystemusers(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT COUNT(*) AS num FROM users";
+		$queryparams = null;
+		$val = $db->rawQueryValue($sqltext, $queryparams);
+		
+		if(is_array($val)){
+			return $val[0];
+		}
+		return $val;
+	}
+
 }

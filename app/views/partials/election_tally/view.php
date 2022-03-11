@@ -168,6 +168,24 @@ $show_export_btn = $this->show_export_btn;
                                             </span>
                                         </td>
                                     </tr>
+                                    <tr  class="td-total_votes">
+                                        <th class="title"> Total Votes: </th>
+                                        <td class="value">
+                                            <span  data-value="<?php echo $data['total_votes']; ?>" 
+                                                data-pk="<?php echo $data['id'] ?>" 
+                                                data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                data-name="total_votes" 
+                                                data-title="Enter Total Votes" 
+                                                data-placement="left" 
+                                                data-toggle="click" 
+                                                data-type="number" 
+                                                data-mode="popover" 
+                                                data-showbuttons="left" 
+                                                class="is-editable" >
+                                                <?php echo $data['total_votes']; ?> 
+                                            </span>
+                                        </td>
+                                    </tr>
                                     <tr  class="td-votes">
                                         <th class="title"> Votes: </th>
                                         <td class="value">

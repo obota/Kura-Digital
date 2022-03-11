@@ -168,11 +168,11 @@ $redirect_to = $this->redirect_to;
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
+                                            <label class="control-label" for="total_votes">Total Votes <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <input id="ctrl-votes"  value="<?php  echo $data['votes']; ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
+                                                <input id="ctrl-total_votes"  value="<?php  echo $data['total_votes']; ?>" type="number" placeholder="Enter Total Votes" step="1"  required="" name="total_votes"  class="form-control " />
                                                 </div>
                                             </div>
                                         </div>
@@ -180,44 +180,56 @@ $redirect_to = $this->redirect_to;
                                     <div class="form-group ">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
+                                                <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
-                                                        <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $data['results_form']; ?>" type="text"  />
-                                                            <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
-                                                            <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
-                                                        </div>
+                                                    <input id="ctrl-votes"  value="<?php  echo $data['votes']; ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
                                                     </div>
-                                                    <?php Html :: uploaded_files_list($data['results_form'], '#ctrl-results_form'); ?>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group ">
                                             <div class="row">
                                                 <div class="col-sm-4">
-                                                    <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                    <label class="control-label" for="results_form">Results Form <span class="text-danger">*</span></label>
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div class="">
-                                                        <input id="ctrl-tally_code"  value="<?php  echo $data['tally_code']; ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                        <div class="dropzone required" input="#ctrl-results_form" fieldname="results_form"    data-multiple="false" dropmsg="Choose files or drag and drop files to upload"    btntext="Browse" filesize="3" maximum="1">
+                                                            <input name="results_form" id="ctrl-results_form" required="" class="dropzone-input form-control" value="<?php  echo $data['results_form']; ?>" type="text"  />
+                                                                <!--<div class="invalid-feedback animated bounceIn text-center">Please a choose file</div>-->
+                                                                <div class="dz-file-limit animated bounceIn text-center text-danger"></div>
+                                                            </div>
+                                                        </div>
+                                                        <?php Html :: uploaded_files_list($data['results_form'], '#ctrl-results_form'); ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group ">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <label class="control-label" for="tally_code">Tally Code <span class="text-danger">*</span></label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <div class="">
+                                                            <input id="ctrl-tally_code"  value="<?php  echo $data['tally_code']; ?>" type="text" placeholder="Enter Tally Code"  readonly required="" name="tally_code"  class="form-control " />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="form-ajax-status"></div>
-                                        <div class="form-group text-center">
-                                            <button class="btn btn-primary" type="submit">
-                                                Update
-                                                <i class="fa fa-send"></i>
-                                            </button>
-                                        </div>
-                                    </form>
+                                            <div class="form-ajax-status"></div>
+                                            <div class="form-group text-center">
+                                                <button class="btn btn-primary" type="submit">
+                                                    Update
+                                                    <i class="fa fa-send"></i>
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
+                </section>
