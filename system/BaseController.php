@@ -170,6 +170,17 @@ class BaseController{
 		);
 	
 
+		$this->file_upload_settings['results_form'] = array(
+			"title" => "{{random}}",
+			"extensions" => "",
+			"limit" => "1",
+			"filesize" => "3",
+			"returnfullpath" => true,
+			"filenameprefix" => "",
+			"uploadDir" => "uploads/files/"
+		);
+	
+
 		$this->status = AUTHORIZED;
 	}
 

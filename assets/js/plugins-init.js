@@ -1,5 +1,38 @@
 Dropzone.autoDiscover = false;
 function initFormPlugins(){
+	$('select.selectize').selectize({
+		create: true
+	});
+	$('.selectize-ajax').each(function() {
+		var endpoint = $(this).data("endpoint");
+		var select = $(this).selectize({
+			valueField: 'value',
+			labelField: 'label',
+			searchField: ['label'],
+			options: [],
+			create: true,
+			render: {
+				option: function(item, escape) {
+					return '<div>' + escape(item.label) + '</div>';
+				}
+			},
+			load: function(query, callback) {
+				if (!query.length) return callback();
+				$.ajax({
+					url: endpoint + '/' + query,
+					type: 'GET',
+					dataType: 'json',
+					error: function() {
+						callback();
+					},
+					success: function(res) {
+						callback(res);
+					}
+				});
+			}
+		});
+		return select;
+	});
 	Dropzone.autoDiscover = false;
 	$('.dropzone').each(function(){
 		let dropzoneControl = $(this)[0].dropzone;
