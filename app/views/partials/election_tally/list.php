@@ -108,7 +108,9 @@ $show_pagination = $this->show_pagination;
                                         <thead class="table-header bg-light">
                                             <tr>
                                                 <th class="td-sno">#</th>
-                                                <th  class="td-date"> Date</th>
+                                                <th  <?php echo (get_value('orderby')=='date' ? 'class="sortedby td-date"' : null); ?>>
+                                                    <?php Html :: get_field_order_link('date', "Date"); ?>
+                                                </th>
                                                 <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-elective_position"> Elective Position</th>
                                                 <th  class="td-county"> County</th>
