@@ -70,4 +70,138 @@ $current_page = $this->set_current_page_link();
             </div>
         </div>
     </div>
+    <div  class="">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col-md-7 comp-grid">
+                    <div class="card card-body">
+                        <?php 
+                        $chartdata = $comp_model->barchart_datasetfromconstituencytally();
+                        ?>
+                        <div>
+                            <h4>Dataset from Constituency Tally</h4>
+                            <small class="text-muted">Summary of Candidate Performance per Constituency</small>
+                        </div>
+                        <hr />
+                        <canvas id="barchart_datasetfromconstituencytally"></canvas>
+                        <script>
+                            $(function (){
+                            var chartData = {
+                            labels : <?php echo json_encode($chartdata['labels']); ?>,
+                            datasets : [
+                            {
+                            label: 'Dataset from Constituency Votes',
+                            backgroundColor:[
+                            <?php 
+                            foreach($chartdata['labels'] as $g){
+                            echo "'" . random_color(0.9) . "',";
+                            }
+                            ?>
+                            ],
+                            borderColor:'RANDOMDIFFERENTCOLOR',
+                            type:'',
+                            borderWidth:1,
+                            data : <?php echo json_encode($chartdata['datasets'][0]); ?>,
+                            }
+                            ]
+                            }
+                            var ctx = document.getElementById('barchart_datasetfromconstituencytally');
+                            var chart = new Chart(ctx, {
+                            type:'bar',
+                            data: chartData,
+                            options: {
+                            scaleStartValue: 0,
+                            responsive: true,
+                            scales: {
+                            xAxes: [{
+                            ticks:{display: true},
+                            gridLines:{display: true},
+                            categoryPercentage: 1.0,
+                            barPercentage: 0.8,
+                            scaleLabel: {
+                            display: true,
+                            labelString: "Constituency"
+                            },
+                            }],
+                            yAxes: [{
+                            ticks: {
+                            beginAtZero: true,
+                            display: true
+                            },
+                            scaleLabel: {
+                            display: true,
+                            labelString: "Votes Garnered per Contituency"
+                            }
+                            }]
+                            },
+                            }
+                            ,
+                            })});
+                        </script>
+                    </div>
+                </div>
+                <div class="col-md-5 comp-grid">
+                    <div class="card card-body">
+                        <?php 
+                        $chartdata = $comp_model->piechart_tallyverification();
+                        ?>
+                        <div>
+                            <h4>Tally Verification</h4>
+                            <small class="text-muted">Summary of Verified and Unverified Tally</small>
+                        </div>
+                        <hr />
+                        <canvas id="piechart_tallyverification"></canvas>
+                        <script>
+                            $(function (){
+                            var chartData = {
+                            labels : <?php echo json_encode($chartdata['labels']); ?>,
+                            datasets : [
+                            {
+                            label: 'Dataset from Poll Verification',
+                            borderColor:'RANDOMDIFFERENTCOLOR',
+                            backgroundColor:[
+                            <?php 
+                            foreach($chartdata['labels'] as $g){
+                            echo "'" . random_color(0.9) . "',";
+                            }
+                            ?>
+                            ],
+                            borderWidth:1,
+                            data : <?php echo json_encode($chartdata['datasets'][0]); ?>,
+                            }
+                            ]
+                            }
+                            var ctx = document.getElementById('piechart_tallyverification');
+                            var chart = new Chart(ctx, {
+                            type:'pie',
+                            data: chartData,
+                            options: {
+                            responsive: true,
+                            scales: {
+                            yAxes: [{
+                            ticks:{display: false},
+                            gridLines:{display: false},
+                            scaleLabel: {
+                            display: true,
+                            labelString: ""
+                            }
+                            }],
+                            xAxes: [{
+                            ticks:{display: false},
+                            gridLines:{display: false},
+                            scaleLabel: {
+                            display: true,
+                            labelString: ""
+                            }
+                            }],
+                            },
+                            }
+                            ,
+                            })});
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

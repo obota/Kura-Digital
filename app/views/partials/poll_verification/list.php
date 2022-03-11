@@ -107,12 +107,6 @@ $show_pagination = $this->show_pagination;
                                     <table class="table  table-striped table-sm text-left">
                                         <thead class="table-header bg-light">
                                             <tr>
-                                                <th class="td-checkbox">
-                                                    <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input class="toggle-check-all custom-control-input" type="checkbox" />
-                                                        <span class="custom-control-label"></span>
-                                                    </label>
-                                                </th>
                                                 <th class="td-sno">#</th>
                                                 <th  class="td-tally_code"> Tally Code</th>
                                                 <th  class="td-election_tally_elective_position"> Elective Position</th>
@@ -142,319 +136,293 @@ $show_pagination = $this->show_pagination;
                                             $counter++;
                                             ?>
                                             <tr>
-                                                <th class=" td-checkbox">
-                                                    <label class="custom-control custom-checkbox custom-control-inline">
-                                                        <input class="optioncheck custom-control-input" name="optioncheck[]" value="<?php echo $data['id'] ?>" type="checkbox" />
-                                                            <span class="custom-control-label"></span>
-                                                        </label>
-                                                    </th>
-                                                    <th class="td-sno"><?php echo $counter; ?></th>
-                                                    <td class="td-tally_code">
-                                                        <span  data-value="<?php echo $data['tally_code']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="tally_code" 
-                                                            data-title="Enter Tally Code" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['tally_code']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_elective_position">
-                                                        <span  data-source='<?php echo json_encode_quote(Menu :: $elective_position); ?>' 
-                                                            data-value="<?php echo $data['election_tally_elective_position']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="elective_position" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="select" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_elective_position']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_county">
-                                                        <span  data-sourceurl="<?php print_link('api/json/poll_verification_election_tally_county_option_list'); ?>" 
-                                                            data-source='<?php print_link('api/json/poll_verification_election_tally_county_option_list'); ?>' 
-                                                            data-value="<?php echo $data['election_tally_county']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="county" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="selectize" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable selectize" >
-                                                            <?php echo $data['election_tally_county']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_constituency">
-                                                        <span  data-source='<?php 
-                                                            $dependent_field = (!empty($data['county']) ? urlencode($data['county']) : null);
-                                                            print_link('api/json/poll_verification_election_tally_constituency_option_list/'.$dependent_field); 
-                                                            ?>' 
-                                                            data-value="<?php echo $data['election_tally_constituency']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="constituency" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="selectize" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable selectize" >
-                                                            <?php echo $data['election_tally_constituency']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_polling_center">
-                                                        <span  data-source='<?php 
-                                                            $dependent_field = (!empty($data['constituency']) ? urlencode($data['constituency']) : null);
-                                                            print_link('api/json/poll_verification_election_tally_polling_center_option_list/'.$dependent_field); 
-                                                            ?>' 
-                                                            data-value="<?php echo $data['election_tally_polling_center']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="polling_center" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="selectize" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable selectize" >
-                                                            <?php echo $data['election_tally_polling_center']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_polling_station">
-                                                        <span  data-source='<?php 
-                                                            $dependent_field = (!empty($data['polling_center']) ? urlencode($data['polling_center']) : null);
-                                                            print_link('api/json/poll_verification_election_tally_polling_station_option_list/'.$dependent_field); 
-                                                            ?>' 
-                                                            data-value="<?php echo $data['election_tally_polling_station']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="polling_station" 
-                                                            data-title="Select a value ..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="selectize" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable selectize" >
-                                                            <?php echo $data['election_tally_polling_station']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_results_form">
-                                                        <span  data-value="<?php echo $data['election_tally_results_form']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="results_form" 
-                                                            data-title="Browse..." 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_results_form']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_votes">
-                                                        <span  data-value="<?php echo $data['election_tally_votes']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="votes" 
-                                                            data-title="Enter Votes" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="number" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_votes']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_rejected_votes">
-                                                        <span  data-value="<?php echo $data['election_tally_rejected_votes']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="rejected_votes" 
-                                                            data-title="Enter Rejected Votes" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="number" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_rejected_votes']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_spoilt_votes">
-                                                        <span  data-value="<?php echo $data['election_tally_spoilt_votes']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="spoilt_votes" 
-                                                            data-title="Enter Spoilt Votes" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="number" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_spoilt_votes']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-election_tally_total_votes">
-                                                        <span  data-value="<?php echo $data['election_tally_total_votes']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="total_votes" 
-                                                            data-title="Enter Total Votes" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="number" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['election_tally_total_votes']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-status">
-                                                        <span  data-value="<?php echo $data['status']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="status" 
-                                                            data-title="Enter Status" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['status']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <td class="td-user">
-                                                        <span  data-value="<?php echo $data['user']; ?>" 
-                                                            data-pk="<?php echo $data['id'] ?>" 
-                                                            data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
-                                                            data-name="user" 
-                                                            data-title="Enter User" 
-                                                            data-placement="left" 
-                                                            data-toggle="click" 
-                                                            data-type="text" 
-                                                            data-mode="popover" 
-                                                            data-showbuttons="left" 
-                                                            class="is-editable" >
-                                                            <?php echo $data['user']; ?> 
-                                                        </span>
-                                                    </td>
-                                                    <th class="td-btn">
-                                                        <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("poll_verification/view/$rec_id"); ?>">
-                                                            <i class="fa fa-eye"></i> View
-                                                        </a>
-                                                        <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("poll_verification/edit/$rec_id"); ?>">
-                                                            <i class="fa fa-edit"></i> Edit
-                                                        </a>
-                                                        <a class="btn btn-sm btn-danger has-tooltip record-delete-btn" title="Delete this record" href="<?php print_link("poll_verification/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
-                                                            <i class="fa fa-times"></i>
-                                                            Delete
-                                                        </a>
-                                                    </th>
-                                                </tr>
-                                                <?php 
-                                                }
-                                                ?>
-                                                <!--endrecord-->
-                                            </tbody>
-                                            <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
-                                            <?php
+                                                <th class="td-sno"><?php echo $counter; ?></th>
+                                                <td class="td-tally_code">
+                                                    <span  data-value="<?php echo $data['tally_code']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="tally_code" 
+                                                        data-title="Enter Tally Code" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="text" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['tally_code']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_elective_position">
+                                                    <span  data-source='<?php echo json_encode_quote(Menu :: $elective_position); ?>' 
+                                                        data-value="<?php echo $data['election_tally_elective_position']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="elective_position" 
+                                                        data-title="Select a value ..." 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="select" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['election_tally_elective_position']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_county">
+                                                    <span  data-sourceurl="<?php print_link('api/json/poll_verification_election_tally_county_option_list'); ?>" 
+                                                        data-source='<?php print_link('api/json/poll_verification_election_tally_county_option_list'); ?>' 
+                                                        data-value="<?php echo $data['election_tally_county']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="county" 
+                                                        data-title="Select a value ..." 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="selectize" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable selectize" >
+                                                        <?php echo $data['election_tally_county']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_constituency">
+                                                    <span  data-source='<?php 
+                                                        $dependent_field = (!empty($data['county']) ? urlencode($data['county']) : null);
+                                                        print_link('api/json/poll_verification_election_tally_constituency_option_list/'.$dependent_field); 
+                                                        ?>' 
+                                                        data-value="<?php echo $data['election_tally_constituency']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="constituency" 
+                                                        data-title="Select a value ..." 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="selectize" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable selectize" >
+                                                        <?php echo $data['election_tally_constituency']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_polling_center">
+                                                    <span  data-source='<?php 
+                                                        $dependent_field = (!empty($data['constituency']) ? urlencode($data['constituency']) : null);
+                                                        print_link('api/json/poll_verification_election_tally_polling_center_option_list/'.$dependent_field); 
+                                                        ?>' 
+                                                        data-value="<?php echo $data['election_tally_polling_center']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="polling_center" 
+                                                        data-title="Select a value ..." 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="selectize" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable selectize" >
+                                                        <?php echo $data['election_tally_polling_center']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_polling_station">
+                                                    <span  data-source='<?php 
+                                                        $dependent_field = (!empty($data['polling_center']) ? urlencode($data['polling_center']) : null);
+                                                        print_link('api/json/poll_verification_election_tally_polling_station_option_list/'.$dependent_field); 
+                                                        ?>' 
+                                                        data-value="<?php echo $data['election_tally_polling_station']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="polling_station" 
+                                                        data-title="Select a value ..." 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="selectize" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable selectize" >
+                                                        <?php echo $data['election_tally_polling_station']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_results_form"><?php Html :: page_link_file($data['election_tally_results_form']); ?></td>
+                                                <td class="td-election_tally_votes">
+                                                    <span  data-value="<?php echo $data['election_tally_votes']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="votes" 
+                                                        data-title="Enter Garnered Votes" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="number" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['election_tally_votes']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_rejected_votes">
+                                                    <span  data-value="<?php echo $data['election_tally_rejected_votes']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="rejected_votes" 
+                                                        data-title="Enter Rejected Votes" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="number" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['election_tally_rejected_votes']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_spoilt_votes">
+                                                    <span  data-value="<?php echo $data['election_tally_spoilt_votes']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="spoilt_votes" 
+                                                        data-title="Enter Spoilt Votes" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="number" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['election_tally_spoilt_votes']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-election_tally_total_votes">
+                                                    <span  data-value="<?php echo $data['election_tally_total_votes']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="total_votes" 
+                                                        data-title="Enter Total Votes" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="number" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['election_tally_total_votes']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-status">
+                                                    <span  data-source='<?php echo json_encode_quote(Menu :: $status); ?>' 
+                                                        data-value="<?php echo $data['status']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="status" 
+                                                        data-title="Enter Status" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="radiolist" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['status']; ?> 
+                                                    </span>
+                                                </td>
+                                                <td class="td-user">
+                                                    <span  data-value="<?php echo $data['user']; ?>" 
+                                                        data-pk="<?php echo $data['id'] ?>" 
+                                                        data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
+                                                        data-name="user" 
+                                                        data-title="Enter User" 
+                                                        data-placement="left" 
+                                                        data-toggle="click" 
+                                                        data-type="text" 
+                                                        data-mode="popover" 
+                                                        data-showbuttons="left" 
+                                                        class="is-editable" >
+                                                        <?php echo $data['user']; ?> 
+                                                    </span>
+                                                </td>
+                                                <th class="td-btn">
+                                                    <a class="btn btn-sm btn-success has-tooltip" title="View Record" href="<?php print_link("poll_verification/view/$rec_id"); ?>">
+                                                        <i class="fa fa-eye"></i> View
+                                                    </a>
+                                                    <a class="btn btn-sm btn-info has-tooltip" title="Edit This Record" href="<?php print_link("poll_verification/edit/$rec_id"); ?>">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </a>
+                                                </th>
+                                            </tr>
+                                            <?php 
                                             }
                                             ?>
-                                        </table>
-                                        <?php 
-                                        if(empty($records)){
-                                        ?>
-                                        <h4 class="bg-light text-center border-top text-muted animated bounce  p-3">
-                                            <i class="fa fa-ban"></i> No record found
-                                        </h4>
+                                            <!--endrecord-->
+                                        </tbody>
+                                        <tbody class="search-data" id="search-data-<?php echo $page_element_id; ?>"></tbody>
                                         <?php
                                         }
                                         ?>
-                                    </div>
-                                    <?php
-                                    if( $show_footer && !empty($records)){
+                                    </table>
+                                    <?php 
+                                    if(empty($records)){
                                     ?>
-                                    <div class=" border-top mt-2">
-                                        <div class="row justify-content-center">    
-                                            <div class="col-md-auto justify-content-center">    
-                                                <div class="p-3 d-flex justify-content-between">    
-                                                    <button data-prompt-msg="Are you sure you want to delete these records?" data-display-style="modal" data-url="<?php print_link("poll_verification/delete/{sel_ids}/?csrf_token=$csrf_token&redirect=$current_page"); ?>" class="btn btn-sm btn-danger btn-delete-selected d-none">
-                                                        <i class="fa fa-times"></i> Delete Selected
+                                    <h4 class="bg-light text-center border-top text-muted animated bounce  p-3">
+                                        <i class="fa fa-ban"></i> No record found
+                                    </h4>
+                                    <?php
+                                    }
+                                    ?>
+                                </div>
+                                <?php
+                                if( $show_footer && !empty($records)){
+                                ?>
+                                <div class=" border-top mt-2">
+                                    <div class="row justify-content-center">    
+                                        <div class="col-md-auto justify-content-center">    
+                                            <div class="p-3 d-flex justify-content-between">    
+                                                <div class="dropup export-btn-holder mx-1">
+                                                    <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <i class="fa fa-save"></i> Export
                                                     </button>
-                                                    <div class="dropup export-btn-holder mx-1">
-                                                        <button class="btn btn-sm btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                            <i class="fa fa-save"></i> Export
-                                                        </button>
-                                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                            <?php $export_print_link = $this->set_current_page_link(array('format' => 'print')); ?>
-                                                            <a class="dropdown-item export-link-btn" data-format="print" href="<?php print_link($export_print_link); ?>" target="_blank">
-                                                                <img src="<?php print_link('assets/images/print.png') ?>" class="mr-2" /> PRINT
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <?php $export_print_link = $this->set_current_page_link(array('format' => 'print')); ?>
+                                                        <a class="dropdown-item export-link-btn" data-format="print" href="<?php print_link($export_print_link); ?>" target="_blank">
+                                                            <img src="<?php print_link('assets/images/print.png') ?>" class="mr-2" /> PRINT
+                                                            </a>
+                                                            <?php $export_pdf_link = $this->set_current_page_link(array('format' => 'pdf')); ?>
+                                                            <a class="dropdown-item export-link-btn" data-format="pdf" href="<?php print_link($export_pdf_link); ?>" target="_blank">
+                                                                <img src="<?php print_link('assets/images/pdf.png') ?>" class="mr-2" /> PDF
                                                                 </a>
-                                                                <?php $export_pdf_link = $this->set_current_page_link(array('format' => 'pdf')); ?>
-                                                                <a class="dropdown-item export-link-btn" data-format="pdf" href="<?php print_link($export_pdf_link); ?>" target="_blank">
-                                                                    <img src="<?php print_link('assets/images/pdf.png') ?>" class="mr-2" /> PDF
+                                                                <?php $export_word_link = $this->set_current_page_link(array('format' => 'word')); ?>
+                                                                <a class="dropdown-item export-link-btn" data-format="word" href="<?php print_link($export_word_link); ?>" target="_blank">
+                                                                    <img src="<?php print_link('assets/images/doc.png') ?>" class="mr-2" /> WORD
                                                                     </a>
-                                                                    <?php $export_word_link = $this->set_current_page_link(array('format' => 'word')); ?>
-                                                                    <a class="dropdown-item export-link-btn" data-format="word" href="<?php print_link($export_word_link); ?>" target="_blank">
-                                                                        <img src="<?php print_link('assets/images/doc.png') ?>" class="mr-2" /> WORD
+                                                                    <?php $export_csv_link = $this->set_current_page_link(array('format' => 'csv')); ?>
+                                                                    <a class="dropdown-item export-link-btn" data-format="csv" href="<?php print_link($export_csv_link); ?>" target="_blank">
+                                                                        <img src="<?php print_link('assets/images/csv.png') ?>" class="mr-2" /> CSV
                                                                         </a>
-                                                                        <?php $export_csv_link = $this->set_current_page_link(array('format' => 'csv')); ?>
-                                                                        <a class="dropdown-item export-link-btn" data-format="csv" href="<?php print_link($export_csv_link); ?>" target="_blank">
-                                                                            <img src="<?php print_link('assets/images/csv.png') ?>" class="mr-2" /> CSV
+                                                                        <?php $export_excel_link = $this->set_current_page_link(array('format' => 'excel')); ?>
+                                                                        <a class="dropdown-item export-link-btn" data-format="excel" href="<?php print_link($export_excel_link); ?>" target="_blank">
+                                                                            <img src="<?php print_link('assets/images/xsl.png') ?>" class="mr-2" /> EXCEL
                                                                             </a>
-                                                                            <?php $export_excel_link = $this->set_current_page_link(array('format' => 'excel')); ?>
-                                                                            <a class="dropdown-item export-link-btn" data-format="excel" href="<?php print_link($export_excel_link); ?>" target="_blank">
-                                                                                <img src="<?php print_link('assets/images/xsl.png') ?>" class="mr-2" /> EXCEL
-                                                                                </a>
-                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col">   
-                                                                    <?php
-                                                                    if($show_pagination == true){
-                                                                    $pager = new Pagination($total_records, $record_count);
-                                                                    $pager->route = $this->route;
-                                                                    $pager->show_page_count = true;
-                                                                    $pager->show_record_count = true;
-                                                                    $pager->show_page_limit =true;
-                                                                    $pager->limit_count = $this->limit_count;
-                                                                    $pager->show_page_number_list = true;
-                                                                    $pager->pager_link_range=5;
-                                                                    $pager->render();
-                                                                    }
-                                                                    ?>
-                                                                </div>
+                                                            </div>
+                                                            <div class="col">   
+                                                                <?php
+                                                                if($show_pagination == true){
+                                                                $pager = new Pagination($total_records, $record_count);
+                                                                $pager->route = $this->route;
+                                                                $pager->show_page_count = true;
+                                                                $pager->show_record_count = true;
+                                                                $pager->show_page_limit =true;
+                                                                $pager->limit_count = $this->limit_count;
+                                                                $pager->show_page_number_list = true;
+                                                                $pager->pager_link_range=5;
+                                                                $pager->render();
+                                                                }
+                                                                ?>
                                                             </div>
                                                         </div>
-                                                        <?php
-                                                        }
-                                                        ?>
                                                     </div>
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </section>
+                            </div>
+                        </section>

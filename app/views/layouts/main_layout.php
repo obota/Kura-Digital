@@ -32,6 +32,7 @@
 			Html ::  page_css('dropzone.min.css');
 			Html ::  page_css('selectize.css');
 			Html ::  page_js('jquery-3.3.1.min.js');
+			Html::page_js('chartjs-2.3.0.js');
 		?>
 	</head>
 	<?php 

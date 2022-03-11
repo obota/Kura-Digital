@@ -85,7 +85,7 @@ $show_export_btn = $this->show_export_btn;
                                     </tr>
                                     <tr  class="td-election_tally_results_form">
                                         <th class="title"> Results Form: </th>
-                                        <td class="value"> <?php echo $data['election_tally_results_form']; ?></td>
+                                        <td class="value"><?php Html :: page_link_file($data['election_tally_results_form']); ?></td>
                                     </tr>
                                     <tr  class="td-election_tally_votes">
                                         <th class="title"> Garnered Votes: </th>
@@ -106,14 +106,15 @@ $show_export_btn = $this->show_export_btn;
                                     <tr  class="td-status">
                                         <th class="title"> Status: </th>
                                         <td class="value">
-                                            <span  data-value="<?php echo $data['status']; ?>" 
+                                            <span  data-source='<?php echo json_encode_quote(Menu :: $status); ?>' 
+                                                data-value="<?php echo $data['status']; ?>" 
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("poll_verification/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="status" 
                                                 data-title="Enter Status" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
-                                                data-type="text" 
+                                                data-type="radiolist" 
                                                 data-mode="popover" 
                                                 data-showbuttons="left" 
                                                 class="is-editable" >
@@ -173,9 +174,6 @@ $show_export_btn = $this->show_export_btn;
                                                 </div>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("poll_verification/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
-                                                </a>
-                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("poll_verification/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
-                                                    <i class="fa fa-times"></i> Delete
                                                 </a>
                                             </div>
                                             <?php

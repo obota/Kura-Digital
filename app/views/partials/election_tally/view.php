@@ -193,7 +193,7 @@ $show_export_btn = $this->show_export_btn;
                                                 data-pk="<?php echo $data['id'] ?>" 
                                                 data-url="<?php print_link("election_tally/editfield/" . urlencode($data['id'])); ?>" 
                                                 data-name="votes" 
-                                                data-title="Enter Votes" 
+                                                data-title="Enter Garnered Votes" 
                                                 data-placement="left" 
                                                 data-toggle="click" 
                                                 data-type="number" 
@@ -314,9 +314,6 @@ $show_export_btn = $this->show_export_btn;
                                                 </div>
                                                 <a class="btn btn-sm btn-info"  href="<?php print_link("election_tally/edit/$rec_id"); ?>">
                                                     <i class="fa fa-edit"></i> Edit
-                                                </a>
-                                                <a class="btn btn-sm btn-danger record-delete-btn mx-1"  href="<?php print_link("election_tally/delete/$rec_id/?csrf_token=$csrf_token&redirect=$current_page"); ?>" data-prompt-msg="Are you sure you want to delete this record?" data-display-style="modal">
-                                                    <i class="fa fa-times"></i> Delete
                                                 </a>
                                             </div>
                                             <?php

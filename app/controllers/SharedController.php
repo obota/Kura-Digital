@@ -178,4 +178,52 @@ class SharedController extends BaseController{
 		return $val;
 	}
 
+	/**
+	* barchart_datasetfromconstituencytally Model Action
+	* @return array
+	*/
+	function barchart_datasetfromconstituencytally(){
+		
+		$db = $this->GetModel();
+		$chart_data = array(
+			"labels"=> array(),
+			"datasets"=> array(),
+		);
+		
+		//set query result for dataset 1
+		$sqltext = "SELECT  et.constituency, SUM(et.votes) AS sum_of_votes FROM election_tally AS et GROUP BY et.constituency ORDER BY et.votes DESC";
+		$queryparams = null;
+		$dataset1 = $db->rawQuery($sqltext, $queryparams);
+		$dataset_data =  array_column($dataset1, 'sum_of_votes');
+		$dataset_labels =  array_column($dataset1, 'constituency');
+		$chart_data["labels"] = array_unique(array_merge($chart_data["labels"], $dataset_labels));
+		$chart_data["datasets"][] = $dataset_data;
+
+		return $chart_data;
+	}
+
+	/**
+	* piechart_tallyverification Model Action
+	* @return array
+	*/
+	function piechart_tallyverification(){
+		
+		$db = $this->GetModel();
+		$chart_data = array(
+			"labels"=> array(),
+			"datasets"=> array(),
+		);
+		
+		//set query result for dataset 1
+		$sqltext = "SELECT  COUNT(pv.id) AS count_of_id, pv.status FROM poll_verification AS pv GROUP BY pv.status";
+		$queryparams = null;
+		$dataset1 = $db->rawQuery($sqltext, $queryparams);
+		$dataset_data =  array_column($dataset1, 'count_of_id');
+		$dataset_labels =  array_column($dataset1, 'status');
+		$chart_data["labels"] = array_unique(array_merge($chart_data["labels"], $dataset_labels));
+		$chart_data["datasets"][] = $dataset_data;
+
+		return $chart_data;
+	}
+
 }

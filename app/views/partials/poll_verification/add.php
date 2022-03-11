@@ -50,7 +50,23 @@ $redirect_to = $this->redirect_to;
                                             </div>
                                             <div class="col-sm-8">
                                                 <div class="">
-                                                    <input id="ctrl-status"  value="<?php  echo $this->set_field_value('status',"Pending Verification"); ?>" type="text" placeholder="Enter Status"  name="status"  class="form-control " />
+                                                    <?php
+                                                    $status_options = Menu :: $status;
+                                                    if(!empty($status_options)){
+                                                    foreach($status_options as $option){
+                                                    $value = $option['value'];
+                                                    $label = $option['label'];
+                                                    //check if current option is checked option
+                                                    $checked = $this->set_field_checked('status', $value, "Pending Verification");
+                                                    ?>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input id="ctrl-status" class="custom-control-input" <?php echo $checked ?>  value="<?php echo $value ?>" type="radio"   name="status" />
+                                                            <span class="custom-control-label"><?php echo $label ?></span>
+                                                        </label>
+                                                        <?php
+                                                        }
+                                                        }
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>

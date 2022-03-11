@@ -119,11 +119,11 @@ $redirect_to = $this->redirect_to;
                                 <div class="form-group ">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <label class="control-label" for="votes">Votes <span class="text-danger">*</span></label>
+                                            <label class="control-label" for="votes">Garnered Votes <span class="text-danger">*</span></label>
                                         </div>
                                         <div class="col-sm-8">
                                             <div class="">
-                                                <input id="ctrl-votes"  value="<?php  echo $this->set_field_value('votes',""); ?>" type="number" placeholder="Enter Votes" step="1"  required="" name="votes"  class="form-control " />
+                                                <input id="ctrl-votes"  value="<?php  echo $this->set_field_value('votes',""); ?>" type="number" placeholder="Enter Garnered Votes" step="1"  required="" name="votes"  class="form-control " />
                                                 </div>
                                             </div>
                                         </div>

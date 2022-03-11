@@ -12,31 +12,31 @@ class Menu{
 		array(
 			'path' => 'home', 
 			'label' => 'Home', 
-			'icon' => ''
+			'icon' => '<i class="fa fa-home fa-2x"></i>'
 		),
 		
 		array(
 			'path' => 'polling_centers', 
 			'label' => 'Polling Centers', 
-			'icon' => ''
+			'icon' => '<i class="fa fa-building-o fa-2x"></i>'
 		),
 		
 		array(
 			'path' => 'election_tally', 
 			'label' => 'Election Tally', 
-			'icon' => ''
+			'icon' => '<i class="fa fa-archive fa-2x"></i>'
 		),
 		
 		array(
 			'path' => 'poll_verification', 
 			'label' => 'Poll Verification', 
-			'icon' => ''
+			'icon' => '<i class="fa fa-check-circle fa-2x"></i>'
 		),
 		
 		array(
 			'path' => 'users', 
 			'label' => 'Users', 
-			'icon' => ''
+			'icon' => '<i class="fa fa-users fa-2x"></i>'
 		)
 	);
 		
@@ -66,6 +66,12 @@ class Menu{
 		array(
 			"value" => "Member of County Assembly", 
 			"label" => "Member Of County Assembly (MCA)", 
+		),);
+		
+			public static $status = array(
+		array(
+			"value" => "Verified", 
+			"label" => "Verified", 
 		),);
 		
 }

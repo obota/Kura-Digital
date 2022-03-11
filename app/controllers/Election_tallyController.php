@@ -366,28 +366,4 @@ $modeldata['user'] = USER_NAME;
 		}
 		return null;
 	}
-	/**
-     * Delete record from the database
-	 * Support multi delete by separating record id by comma.
-     * @return BaseView
-     */
-	function delete($rec_id = null){
-		Csrf::cross_check();
-		$request = $this->request;
-		$db = $this->GetModel();
-		$tablename = $this->tablename;
-		$this->rec_id = $rec_id;
-		//form multiple delete, split record id separated by comma into array
-		$arr_rec_id = array_map('trim', explode(",", $rec_id));
-		$db->where("election_tally.id", $arr_rec_id, "in");
-		$bool = $db->delete($tablename);
-		if($bool){
-			$this->set_flash_msg("Record deleted successfully", "success");
-		}
-		elseif($db->getLastError()){
-			$page_error = $db->getLastError();
-			$this->set_flash_msg($page_error, "danger");
-		}
-		return	$this->redirect("election_tally");
-	}
 }
