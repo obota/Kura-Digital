@@ -37,6 +37,12 @@ class Menu{
 			'path' => 'users', 
 			'label' => 'Users', 
 			'icon' => '<i class="fa fa-users fa-2x"></i>'
+		),
+		
+		array(
+			'path' => 'agents', 
+			'label' => 'Agents', 
+			'icon' => ''
 		)
 	);
 		

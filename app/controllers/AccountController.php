@@ -110,8 +110,6 @@ class AccountController extends SecureController{
 			$db->where ("id", $rec_id);
 			$result = $db->update($tablename, array('email' => $email ));
 			if($result){
-				$this->set_flash_msg("Email address changed successfully", "success");
-				$this->redirect("account");
 			}
 			else{
 				$this->set_page_error("Email not changed");

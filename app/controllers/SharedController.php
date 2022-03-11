@@ -153,6 +153,54 @@ class SharedController extends BaseController{
 	}
 
 	/**
+     * agents_county_option_list Model Action
+     * @return array
+     */
+	function agents_county_option_list(){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT county_name AS value,county_name AS label FROM polling_centers ORDER BY id ASC";
+		$queryparams = null;
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * agents_constituency_option_list Model Action
+     * @return array
+     */
+	function agents_constituency_option_list($lookup_county){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT constituency_name AS value,constituency_name AS label FROM polling_centers WHERE county_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_county);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * agents_polling_center_option_list Model Action
+     * @return array
+     */
+	function agents_polling_center_option_list($lookup_constituency){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT polling_center_name AS value,polling_center_name AS label FROM polling_centers WHERE constituency_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_constituency);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
+     * agents_polling_station_option_list Model Action
+     * @return array
+     */
+	function agents_polling_station_option_list($lookup_polling_center){
+		$db = $this->GetModel();
+		$sqltext = "SELECT  DISTINCT polling_station_name AS value,polling_station_name AS label FROM polling_centers WHERE polling_center_name= ? ORDER BY id ASC" ;
+		$queryparams = array($lookup_polling_center);
+		$arr = $db->rawQuery($sqltext, $queryparams);
+		return $arr;
+	}
+
+	/**
      * getcount_totalpollingstations Model Action
      * @return Value
      */

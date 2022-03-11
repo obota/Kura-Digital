@@ -21,7 +21,8 @@ class ACL
 							'polling_centers' => array('list','view','add','edit', 'editfield','delete'),
 							'poll_verification' => array('list','view','add','edit', 'editfield','delete'),
 							'role_permissions' => array('list','view','add','edit', 'editfield','delete'),
-							'roles' => array('list','view','add','edit', 'editfield','delete')
+							'roles' => array('list','view','add','edit', 'editfield','delete'),
+							'agents' => array('list','view','add','edit', 'editfield','delete')
 						),
 		
 			'verification manager' =>
